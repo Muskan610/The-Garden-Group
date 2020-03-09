@@ -1,0 +1,14 @@
+C:\Users\avtarsingh\Desktop\The Garden Group\The Garden Group\TGG_Service\obj\Debug\TGG_Service.csprojAssemblyReference.cache
+C:\Users\avtarsingh\Desktop\The Garden Group\The Garden Group\TGG_Service\bin\Debug\mongocrypt.dll
+C:\Users\avtarsingh\Desktop\The Garden Group\The Garden Group\TGG_Service\bin\Debug\TGG_Service.dll.config
+C:\Users\avtarsingh\Desktop\The Garden Group\The Garden Group\TGG_Service\bin\Debug\TGG_Service.dll
+C:\Users\avtarsingh\Desktop\The Garden Group\The Garden Group\TGG_Service\bin\Debug\TGG_Service.pdb
+C:\Users\avtarsingh\Desktop\The Garden Group\The Garden Group\TGG_Service\bin\Debug\TGG_DAL.dll
+C:\Users\avtarsingh\Desktop\The Garden Group\The Garden Group\TGG_Service\bin\Debug\TGG_Model.dll
+C:\Users\avtarsingh\Desktop\The Garden Group\The Garden Group\TGG_Service\bin\Debug\TGG_DAL.pdb
+C:\Users\avtarsingh\Desktop\The Garden Group\The Garden Group\TGG_Service\bin\Debug\TGG_DAL.dll.config
+C:\Users\avtarsingh\Desktop\The Garden Group\The Garden Group\TGG_Service\bin\Debug\TGG_Model.pdb
+C:\Users\avtarsingh\Desktop\The Garden Group\The Garden Group\TGG_Service\bin\Debug\TGG_Model.dll.config
+C:\Users\avtarsingh\Desktop\The Garden Group\The Garden Group\TGG_Service\obj\Debug\TGG_Service.csproj.CopyComplete
+C:\Users\avtarsingh\Desktop\The Garden Group\The Garden Group\TGG_Service\obj\Debug\TGG_Service.dll
+C:\Users\avtarsingh\Desktop\The Garden Group\The Garden Group\TGG_Service\obj\Debug\TGG_Service.pdb
