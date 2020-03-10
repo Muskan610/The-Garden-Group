@@ -4,3 +4,9 @@ C:\Users\avtarsingh\Desktop\The Garden Group\The Garden Group\TGG_Model\bin\Debu
 C:\Users\avtarsingh\Desktop\The Garden Group\The Garden Group\TGG_Model\bin\Debug\TGG_Model.pdb
 C:\Users\avtarsingh\Desktop\The Garden Group\The Garden Group\TGG_Model\obj\Debug\TGG_Model.dll
 C:\Users\avtarsingh\Desktop\The Garden Group\The Garden Group\TGG_Model\obj\Debug\TGG_Model.pdb
+C:\Users\avtarsingh\Documents\GitHub\The-Garden-Group\The Garden Group\TGG_Model\bin\Debug\TGG_Model.dll.config
+C:\Users\avtarsingh\Documents\GitHub\The-Garden-Group\The Garden Group\TGG_Model\bin\Debug\TGG_Model.dll
+C:\Users\avtarsingh\Documents\GitHub\The-Garden-Group\The Garden Group\TGG_Model\bin\Debug\TGG_Model.pdb
+C:\Users\avtarsingh\Documents\GitHub\The-Garden-Group\The Garden Group\TGG_Model\obj\Debug\TGG_Model.csprojAssemblyReference.cache
+C:\Users\avtarsingh\Documents\GitHub\The-Garden-Group\The Garden Group\TGG_Model\obj\Debug\TGG_Model.dll
+C:\Users\avtarsingh\Documents\GitHub\The-Garden-Group\The Garden Group\TGG_Model\obj\Debug\TGG_Model.pdb
