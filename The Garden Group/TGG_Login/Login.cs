@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TGG_Model;
 using TGG_Service;
+using NoDesk;
 
 namespace TGG_App
 {
@@ -22,13 +16,12 @@ namespace TGG_App
 
         private void Loginbtn_Click(object sender, EventArgs e)
         {
-            if (user_Service.verifyUserCredentials(UnameTxtbox.Text, PasswdTxtbox.Text) == true)
+            User oneUser = user_Service.verifyUserCredentials(UnameTxtbox.Text,PasswdTxtbox.Text);
+            
+            if (oneUser!= null)
             {
-                //testing only
-                User oneUser = new User();
-                oneUser = user_Service.GetUserByUserName(UnameTxtbox.Text);
-                string message ="Username: "+ oneUser.Username+ " and User role: " + oneUser.role + "";
-                MessageBox.Show(message);
+                //get user and login
+                GoToDashboard();
             }
             else
             {
@@ -44,7 +37,16 @@ namespace TGG_App
 
         private void ForgorPassLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            Form1 PassResetForm = new Form1();
+            PassResetForm.Show();
         }
+        private void GoToDashboard()
+        {
+            this.Hide();
+            TGG_Login.Dashboard dashboard = new TGG_Login.Dashboard();
+            dashboard.Show();
+        }
+
+       
     }
 }

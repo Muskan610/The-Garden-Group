@@ -1,68 +1,41 @@
 ﻿using System;
 using TGG_Model;
+using NoDesk;
+using MongoDB.Driver;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using System.Linq;
 
 namespace TGG_DAL
 {
     public class User_DAO
     {
+        //Connection file that makes a connection when created
+        public Config config = new Config();
         //if check existence is true then call get user by name
-        public User GetUserByUserName(string username) //if the user is verified, get userinfo from DB by the username
-        {
-            // OpenConnection();
-            //get user deatils
-            string userStatus = "user";//test
-            User oneUser = new User()
-            {
-                Username = username,
-                role = userStatus
-            };
 
-            // CloseConnection();
-            return oneUser;
-        }
-
-
-        public bool verifyUserCredentials(string username, string password)
+        public User verifyUserCredentials(string username, string password)
         {
             try
             {
-                if (verifyUsername(username) == true && verifyUserPassword(username, password) == true)
+                
+                var database = config.dbClient.GetDatabase("NoDesk");
+                var collection = database.GetCollection<User>("Users");
+                var filter = Builders<User>.Filter.Eq("Email", username);
+                
+                var user = collection.Find(filter).FirstOrDefault<User>();
+                if (user == null)
                 {
-                    return true;
+                    return null;
+                }
+                else if ((username == user.Email)&&(password==user.Password))
+                {
+                    return user;
                 }
                 else
                 {
-                    return false;
+                    return null;
                 }
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Error : " + e);//added exception code
-            }
-        }
-
-        private bool verifyUsername(string username)
-        {
-            try
-            {
-                //query the db for a user with this username, 
-                //if the query results a user, return true
-                //else return false
-                return true;
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Error : " + e);//added exception code
-            }
-        }
-
-        private bool verifyUserPassword(string username, string password)
-        {
-            try
-            {
-                //query the db for the password of this user, 
-                //if the paswd in the args match with this one, return true
-                return true;
             }
             catch (Exception e)
             {

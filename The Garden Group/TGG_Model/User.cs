@@ -1,11 +1,14 @@
 ﻿using System;
+using MongoDB.Bson;
 
 namespace TGG_Model
 {
     public class User
     {
-        public string Username;
+        public ObjectId Id;
+        public string Email;
         public string Password;
-        public string role; //status
+        public string Name;
+        public string Auth_code;
     }
 }

@@ -8,7 +8,7 @@ namespace TGG_Service
     {
         User_DAO User_DAO = new User_DAO();
 
-        public bool verifyUserCredentials(string username, string password)
+        public User verifyUserCredentials(string username, string password)
         {
             try
             {
@@ -18,20 +18,6 @@ namespace TGG_Service
             {
                 throw new Exception(" " + e.Message);
             }
-        }
-
-        public User GetUserByUserName(string username)
-        {
-            try
-            {
-                User user = User_DAO.GetUserByUserName(username);
-                return user;
-            }
-            catch (Exception e)
-            {
-                throw new Exception(" " + e.Message);
-            }
-
         }
 
     }
