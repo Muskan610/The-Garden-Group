@@ -21,8 +21,8 @@ namespace TGG_DAL
                 
                 var database = config.dbClient.GetDatabase("NoDesk");
                 var collection = database.GetCollection<User>("Users");
-                var filter = Builders<User>.Filter.Eq("Email", username); //filter definition builder
-
+                var filter = Builders<User>.Filter.Eq("Email", username);
+                
                 var user = collection.Find(filter).FirstOrDefault<User>();
                 if (user == null)
                 {

@@ -26,6 +26,23 @@ namespace TGG_Service
             }
             
         }
+
+        //calls method in dao layer to get all incident tickets
+        public List<Ticket> GetAllTickets_Solved()
+        {
+            try
+            {
+                return DAO_Tickets.db_TicketsList_Solved();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(" " + e.Message);
+            }
+
+        }
+
+
+
         // returns total count of incident tickets
         public int IncidentCount(List<Ticket> incidents)
         {

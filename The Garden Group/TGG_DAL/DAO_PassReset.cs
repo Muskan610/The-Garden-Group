@@ -39,7 +39,7 @@ namespace NoDesk
             //create filter
             var filter = Builders<BsonDocument>.Filter.Eq("Email", Email);
             //update in database
-            var update = Builders<BsonDocument>.Update.Set("auth_code", Authcode);
+            var update = Builders<BsonDocument>.Update.Set("Auth_code", Authcode);
             collection.UpdateOne(filter, update);
         }
 
@@ -67,11 +67,11 @@ namespace NoDesk
             //create filter
             var filter = Builders<BsonDocument>.Filter.Eq("Email", email);
             //update in database
-            var update = Builders<BsonDocument>.Update.Set("password", Password);
+            var update = Builders<BsonDocument>.Update.Set("Password", Password);
             collection.UpdateOne(filter, update);
 
             //remove authcode from datbase
-            var update_auth_code = Builders<BsonDocument>.Update.Set("auth_code", "0");
+            var update_auth_code = Builders<BsonDocument>.Update.Set("Auth_code", "0");
             collection.UpdateOne(filter, update_auth_code);
             //do check if everything goes well
             InsertPasswordCheck = true;

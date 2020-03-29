@@ -48,6 +48,7 @@ namespace TGG_Login
             Dashboard_panel.Hide();
             panel_dashboardViewTicketList.Show();
             PopulateDashboardIncidentList();
+            PopulateDashboardIncidentList_Solved();
         }
         // populates listview with tickets
         private void PopulateDashboardIncidentList()
@@ -78,11 +79,60 @@ namespace TGG_Login
                 listView_dashboard.Items.Add(li);
             }
         }
-        // returns back to dashboard
-        private void Dash_back_btn_Click(object sender, EventArgs e)
+
+        // populates listview with tickets
+        private void PopulateDashboardIncidentList_Solved()
         {
-            panel_dashboardViewTicketList.Hide();
-            Dashboard_panel.Show();      
+            listView_dashboard_SolvedTickets.Clear();
+
+            listView_dashboard_SolvedTickets.View = View.Details;
+
+            listView_dashboard_SolvedTickets.Columns.Add("Requested By", 100, HorizontalAlignment.Left);
+            listView_dashboard_SolvedTickets.Columns.Add("Request Date", 100, HorizontalAlignment.Left);
+            listView_dashboard_SolvedTickets.Columns.Add("Deadline", 100, HorizontalAlignment.Left);
+            listView_dashboard_SolvedTickets.Columns.Add("subject", 100, HorizontalAlignment.Left);
+            listView_dashboard_SolvedTickets.Columns.Add("description", 100, HorizontalAlignment.Left);
+            listView_dashboard_SolvedTickets.Columns.Add("status", 100, HorizontalAlignment.Left);
+
+            foreach (Ticket t in ticket_Service.GetAllTickets_Solved())
+            {
+                ListViewItem li = new ListViewItem(t.GetRequestedBy());
+
+                li.SubItems.Add(t.GetRequestDate().ToString("yyyy/MM/dd HH:mm:ss"));
+                li.SubItems.Add(t.GetDeadline().ToString("yyyy/MM/dd HH:mm:ss"));
+                li.SubItems.Add(t.GetSubject());
+                li.SubItems.Add(t.GetDescription());
+                li.SubItems.Add(t.GetStatus().ToString());
+
+                li.Tag = t;
+
+                listView_dashboard_SolvedTickets.Items.Add(li);
+            }
         }
+
+        private void dashboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //if dasboard menu item is clicked display dashboard panel and hide the rest
+            Dashboard_panel.Show();
+            panel_dashboardViewTicketList.Hide();
+        }
+
+        private void incidentManagementToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //if incident management menu item is clicked display panel and hide the rest
+            panel_dashboardViewTicketList.Show();
+            Dashboard_panel.Hide();
+
+            //populate lists if panel gets selected
+            PopulateDashboardIncidentList();
+            PopulateDashboardIncidentList_Solved();
+        }
+
+
+
+        //useless buttons we accidently pressed but no code belongs to.
+        private void Dash_back_btn_Click(object sender, EventArgs e) { }
+        private void label1_Click(object sender, EventArgs e) { }
+        private void listView_dashboard_SelectedIndexChanged(object sender, EventArgs e) { }
     }
 }

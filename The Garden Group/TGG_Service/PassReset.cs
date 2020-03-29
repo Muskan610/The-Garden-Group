@@ -76,7 +76,7 @@ namespace NoDesk
             if (user.ContainsValue(User_email))
             {
                 //if it has user email get authcode from database
-                string DatabaseAuthCode = user["auth_code"];
+                string DatabaseAuthCode = user["Auth_code"];
 
                 //check if they are the same and return value
                 return DatabaseAuthCode == user_Authcode;

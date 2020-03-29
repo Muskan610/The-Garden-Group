@@ -19,6 +19,5 @@ namespace TGG_Service
                 throw new Exception(" " + e.Message);
             }
         }
-
     }
 }

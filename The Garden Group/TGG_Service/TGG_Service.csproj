@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Notifications_Service.cs" />
     <Compile Include="PassReset.cs" />
     <Compile Include="Ticket_Service.cs" />
     <Compile Include="User_Service.cs" />
