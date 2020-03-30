@@ -43,7 +43,7 @@ namespace TGG_App
         private void GoToDashboard()
         {
             this.Hide();
-            TGG_Login.Dashboard dashboard = new TGG_Login.Dashboard();
+            TGG_Login.Gardern_Group_desk dashboard = new TGG_Login.Gardern_Group_desk();
             dashboard.Show();
         }
 

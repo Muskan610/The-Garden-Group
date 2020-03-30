@@ -161,3 +161,46 @@ C:\Users\Max van Kekeren\OneDrive - Hogeschool Inholland\Cloud\Maxvankekeren-IT\
 C:\Users\Max van Kekeren\OneDrive - Hogeschool Inholland\Cloud\Maxvankekeren-IT\Personal\Documents\School\Inholland\Year 2\Term 2.3\NoSQL project\NoDeskV6\TGG_Service\obj\Debug\TGG_Service.csproj.CopyComplete
 C:\Users\Max van Kekeren\OneDrive - Hogeschool Inholland\Cloud\Maxvankekeren-IT\Personal\Documents\School\Inholland\Year 2\Term 2.3\NoSQL project\NoDeskV6\TGG_Service\obj\Debug\TGG_Service.dll
 C:\Users\Max van Kekeren\OneDrive - Hogeschool Inholland\Cloud\Maxvankekeren-IT\Personal\Documents\School\Inholland\Year 2\Term 2.3\NoSQL project\NoDeskV6\TGG_Service\obj\Debug\TGG_Service.pdb
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\obj\Debug\TGG_Service.csprojAssemblyReference.cache
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\obj\Debug\TGG_Service.csproj.CoreCompileInputs.cache
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\obj\Debug\TGG_Service.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\obj\Debug\TGG_Service.pdb
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\mongocrypt.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\TGG_Service.dll.config
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\TGG_Service.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\TGG_Service.pdb
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\System.Data.Common.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\System.Diagnostics.StackTrace.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\System.Diagnostics.Tracing.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\System.Globalization.Extensions.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\System.IO.Compression.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\System.Net.Http.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\System.Net.Sockets.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\System.Runtime.Serialization.Primitives.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\System.Security.Cryptography.Algorithms.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\System.Security.SecureString.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\System.Threading.Overlapped.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\System.Xml.XPath.XDocument.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\Crc32C.NET.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\DnsClient.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\MongoDB.Bson.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\MongoDB.Driver.Core.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\MongoDB.Driver.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\MongoDB.Libmongocrypt.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\SharpCompress.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\Snappy.NET.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\System.Buffers.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\TGG_DAL.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\TGG_Model.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\TGG_DAL.pdb
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\TGG_DAL.dll.config
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\TGG_Model.pdb
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\TGG_Model.dll.config
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\Crc32C.NET.xml
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\DnsClient.xml
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\MongoDB.Bson.xml
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\MongoDB.Driver.xml
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\MongoDB.Driver.Core.xml
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\Snappy.NET.xml
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\bin\Debug\System.Buffers.xml
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_Service\obj\Debug\TGG_Service.csproj.CopyComplete

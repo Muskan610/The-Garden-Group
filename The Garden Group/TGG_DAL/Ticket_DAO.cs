@@ -26,7 +26,7 @@ namespace TGG_DAL
         //returns list to service layer
         public List<Ticket> db_TicketsList()
         {
-            return GetTicketList();
+            return GetALLTicketsList();
         }
 
         //returns list to service layer
@@ -36,7 +36,7 @@ namespace TGG_DAL
         }
 
         // gets all tickets from database 
-        private List<Ticket> GetTicketList()
+        private List<Ticket> GetALLTicketsList()
         {
             //create ticket list that will returned
             List<Ticket> tickets = new List<Ticket>();
@@ -52,11 +52,8 @@ namespace TGG_DAL
             //stores each ticket in ticket object and adds it to ticket list
             foreach(var r in result)
             {
-                if (r.GetValue("status") != "solved")
-                {
-                    Ticket ticket = new Ticket(r.GetValue("_id").AsObjectId, r.GetValue("requestedBy").AsString, r.GetValue("deadline").ToUniversalTime(), r.GetValue("requestDate").ToUniversalTime(), r.GetValue("subject").AsString, r.GetValue("description").AsString, ConvertStatus(r.GetValue("status").AsString));
-                    tickets.Add(ticket);
-                }
+                    Ticket ticket = new Ticket(r.GetValue("_id").AsObjectId, r.GetValue("requestedBy").AsString, r.GetValue("deadline").ToUniversalTime(), r.GetValue("requestDate").ToUniversalTime(), r.GetValue("subject").AsString, r.GetValue("description").AsString, ConvertStatus(r.GetValue("status").AsString), SetTicketPriority(r.GetValue("priority").AsString), r.GetValue("type").AsString);
+                    tickets.Add(ticket);      
             }
             //list of tickets is returned
             return tickets;
@@ -79,9 +76,9 @@ namespace TGG_DAL
             //stores each ticket in ticket object and adds it to ticket list
             foreach (var r in result)
             {
-                if (r.GetValue("status") == "solved")
+                if (r.GetValue("status") == "Solved")
                 {
-                    Ticket ticket = new Ticket(r.GetValue("_id").AsObjectId, r.GetValue("requestedBy").AsString, r.GetValue("deadline").ToUniversalTime(), r.GetValue("requestDate").ToUniversalTime(), r.GetValue("subject").AsString, r.GetValue("description").AsString, ConvertStatus(r.GetValue("status").AsString));
+                    Ticket ticket = new Ticket(r.GetValue("_id").AsObjectId, r.GetValue("requestedBy").AsString, r.GetValue("deadline").ToUniversalTime(), r.GetValue("requestDate").ToUniversalTime(), r.GetValue("subject").AsString, r.GetValue("description").AsString, ConvertStatus(r.GetValue("status").AsString), SetTicketPriority(r.GetValue("priority").AsString), r.GetValue("type").AsString);
                     tickets.Add(ticket);
                 }
             }
@@ -94,11 +91,57 @@ namespace TGG_DAL
         {
             Status state=Status.Pending;
 
-            if (s=="solved")
+            if (s=="Solved")
             {
                 return state = Status.Solved;
             }
             return state;
+        }
+        public void DB_Write_ticket(Ticket ticket)
+        {
+            var database = config.dbClient.GetDatabase("NoDesk");
+            var collection = database.GetCollection<BsonDocument>("Tickets");
+
+            var document = new BsonDocument
+            {
+                {"_id",ticket.GetId()},
+                {"requestedBy",ticket.GetRequestedBy().ToString()},
+                {"deadline",ticket.GetDeadline()},
+                {"requestDate",ticket.GetRequestDate()},
+                {"subject",ticket.GetSubject().ToString()},
+                {"description",ticket.GetDescription().ToString()},
+                {"status",ticket.GetStatus().ToString()},
+                {"priority",ticket.GetPriority().ToString() },
+                {"type",ticket.GetTypeOfIncident().ToString() }
+            };
+
+            collection.InsertOneAsync(document);
+        }
+        private Priority SetTicketPriority(string input)
+        {
+            Priority priority = new Priority();
+
+            if (input == "VeryLow")
+            {
+                priority = Priority.VeryLow;
+            }
+            else if (input == "Low")
+            {
+                priority = Priority.Low;
+            }
+            else if (input == "Normal")
+            {
+                priority = Priority.Normal;
+            }
+            else if (input == "High")
+            {
+                priority = Priority.High;
+            }
+            else if (input == "VeryHigh")
+            {
+                priority = Priority.VeryHigh;
+            }
+            return priority;
         }
     }
 }

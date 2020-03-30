@@ -34,7 +34,7 @@ namespace TGG_Service
             else if (status == TGG_Model.Status.Solved)
             {
                 Message = "Dear" + ToEmail + ", \n" +
-                    "Good news! Your ticket:'"+Subject+"' has status:'"+status.ToString()+"'. That means that your ticket should be solved! If your problem isn't fixed please contact the helpdesk."
+                    "Good news! Your ticket:'" + Subject + "' has status:'" + status.ToString() + "'. That means that your ticket should be solved! If your problem isn't fixed please contact the helpdesk.";
             }
 
             if (Message != "")

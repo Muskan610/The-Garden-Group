@@ -81,11 +81,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dashboard.cs">
+    <Compile Include="Gardern_Group_desk.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dashboard.Designer.cs">
-      <DependentUpon>Dashboard.cs</DependentUpon>
+    <Compile Include="Gardern_Group_desk.Designer.cs">
+      <DependentUpon>Gardern_Group_desk.cs</DependentUpon>
     </Compile>
     <Compile Include="PassReset.cs">
       <SubType>Form</SubType>
@@ -101,8 +101,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Dashboard.resx">
-      <DependentUpon>Dashboard.cs</DependentUpon>
+    <EmbeddedResource Include="Gardern_Group_desk.resx">
+      <DependentUpon>Gardern_Group_desk.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PassReset.resx">
       <DependentUpon>PassReset.cs</DependentUpon>

@@ -18,9 +18,11 @@ namespace TGG_Model
         private string subject;
         private string description;
         private Status status;
+        private Priority priority;
+        private string typeOFincident;
 
         // values are passed into the constructor first to create a ticket object
-        public Ticket(ObjectId ID, string RequestedBy,DateTime Deadline, DateTime RequestDate, string Subject, string Description, Status Status)
+        public Ticket(ObjectId ID, string RequestedBy,DateTime Deadline, DateTime RequestDate, string Subject, string Description, Status Status, Priority Priority, string TypeOFincident)
         {
             this.id = ID;
             this.requestedBy = RequestedBy;
@@ -32,10 +34,14 @@ namespace TGG_Model
             {
                 status = Status.PastDeadline;
             }
-            
+            else
+            {
+                status = Status;
+            }
             this.description = Description;
             this.subject = Subject;
-
+            this.priority = Priority;
+            this.typeOFincident = TypeOFincident;
         }
         //checks if deadline is passed and returns true
         public bool CheckDeadlinePassed(DateTime Deadline)
@@ -48,7 +54,7 @@ namespace TGG_Model
             }
             return check;
         }
-        //getters for almost all variables
+        //getters for all variables
         public Status GetStatus()
         {
             return status;
@@ -73,6 +79,19 @@ namespace TGG_Model
         {
             return description;
         }
+        public ObjectId GetId()
+        {
+            return id;
+        }
+        public Priority GetPriority()
+        {
+            return priority;
+        }
+        public string GetTypeOfIncident()
+        {
+            return typeOFincident;
+        }
+
 
     }
 }

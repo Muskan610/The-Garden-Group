@@ -26,7 +26,20 @@ namespace TGG_Service
             }
             
         }
+        //returns all unresolved tickets from a list of tickets
+        public List<Ticket> GetAllUnresolvedTickets(List<Ticket> all_tickets)
+        {
+            List<Ticket> tickets = new List<Ticket>();
 
+            foreach(Ticket t in all_tickets)
+            {
+                if (t.GetStatus() == Status.Pending || t.GetStatus() == Status.PastDeadline)
+                {
+                    tickets.Add(t);
+                }
+            }
+            return tickets;
+        }
         //calls method in dao layer to get all incident tickets
         public List<Ticket> GetAllTickets_Solved()
         {
@@ -40,9 +53,6 @@ namespace TGG_Service
             }
 
         }
-
-
-
         // returns total count of incident tickets
         public int IncidentCount(List<Ticket> incidents)
         {
@@ -56,7 +66,7 @@ namespace TGG_Service
             int count = 0;
             foreach (Ticket t in incidents)
             {
-                if (t.GetStatus()==Status.Pending)
+                if (t.GetStatus()==Status.Pending||t.GetStatus()==Status.PastDeadline)
                 {
                     count++;
                 }
@@ -77,6 +87,50 @@ namespace TGG_Service
 
             }
             return count;
+        }
+        //creates a ticket and then passes it to database layer from where it is written in database
+        public void WriteTicket_service(string requestedBy, DateTime deadline, DateTime requestDate, string subject, string description, Status status, string priority,string typeOfIncident)
+        {
+            //class object that creates id for ticket
+            IdGenerator id = new IdGenerator();
+
+            Ticket ticket = new Ticket(id.GetId(), requestedBy, deadline, requestDate, subject, description, status, SetTicketPriority(priority), typeOfIncident);
+
+            try
+            {
+                DAO_Tickets.DB_Write_ticket(ticket);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(" " + e.Message);
+            }
+        }
+        //converts string input into enum Priority value 
+        private Priority SetTicketPriority(string input)
+        {
+            Priority priority= new Priority();
+
+            if (input=="VeryLow")
+            {
+                priority = Priority.VeryLow;
+            }
+            else if (input == "Low")
+            {
+                priority = Priority.Low;
+            }
+            else if (input == "Normal")
+            {
+                priority = Priority.Normal;
+            }
+            else if (input == "High")
+            {
+                priority = Priority.High;
+            }
+            else if (input == "VeryHigh")
+            {
+                priority = Priority.VeryHigh;
+            }
+            return priority;
         }
     }
 }

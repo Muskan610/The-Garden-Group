@@ -82,7 +82,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmailNotification.cs" />
+    <Compile Include="IdGenerator.cs" />
     <Compile Include="Notification.cs" />
+    <Compile Include="Priority.cs" />
     <Compile Include="Status.cs" />
     <Compile Include="Ticket.cs" />
     <Compile Include="User.cs" />

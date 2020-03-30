@@ -76,3 +76,40 @@ D:\Term 2\NoSQL\NoDeskV5\TGG_DBconnect\obj\Debug\TGG_DBconnect.csprojAssemblyRef
 D:\Term 2\NoSQL\NoDeskV5\TGG_DBconnect\obj\Debug\TGG_DBconnect.csproj.CoreCompileInputs.cache
 D:\Term 2\NoSQL\NoDeskV5\TGG_DBconnect\obj\Debug\TGG_DBconnect.dll
 D:\Term 2\NoSQL\NoDeskV5\TGG_DBconnect\obj\Debug\TGG_DBconnect.pdb
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\mongocrypt.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\TGG_DBconnect.dll.config
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\TGG_DBconnect.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\TGG_DBconnect.pdb
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\System.Data.Common.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\System.Diagnostics.StackTrace.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\System.Diagnostics.Tracing.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\System.Globalization.Extensions.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\System.IO.Compression.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\System.Net.Http.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\System.Net.Sockets.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\System.Runtime.Serialization.Primitives.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\System.Security.Cryptography.Algorithms.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\System.Security.SecureString.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\System.Threading.Overlapped.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\System.Xml.XPath.XDocument.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\Crc32C.NET.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\DnsClient.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\MongoDB.Bson.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\MongoDB.Driver.Core.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\MongoDB.Driver.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\MongoDB.Libmongocrypt.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\SharpCompress.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\Snappy.NET.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\System.Buffers.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\Crc32C.NET.xml
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\DnsClient.xml
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\MongoDB.Bson.xml
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\MongoDB.Driver.xml
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\MongoDB.Driver.Core.xml
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\Snappy.NET.xml
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\bin\Debug\System.Buffers.xml
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\obj\Debug\TGG_DBconnect.csprojAssemblyReference.cache
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\obj\Debug\TGG_DBconnect.csproj.CoreCompileInputs.cache
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\obj\Debug\TGG_DBconnect.csproj.CopyComplete
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\obj\Debug\TGG_DBconnect.dll
+C:\Users\frece\Desktop\NoDeskV8\NoDeskV6\TGG_DBconnect\obj\Debug\TGG_DBconnect.pdb
