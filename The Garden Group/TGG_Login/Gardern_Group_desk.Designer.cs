@@ -71,6 +71,8 @@
             this.create_ticket_btn = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.Clock = new System.Windows.Forms.Timer(this.components);
+            this.txtBox_filterEmail = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.Dashboard_panel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panel_dashboardViewTicketList.SuspendLayout();
@@ -265,16 +267,18 @@
             // 
             // incident_management_Panel
             // 
+            this.incident_management_Panel.Controls.Add(this.label14);
+            this.incident_management_Panel.Controls.Add(this.txtBox_filterEmail);
             this.incident_management_Panel.Controls.Add(this.go_create_incident_BTN);
             this.incident_management_Panel.Controls.Add(this.listView_incidents);
             this.incident_management_Panel.Location = new System.Drawing.Point(0, 0);
             this.incident_management_Panel.Name = "incident_management_Panel";
-            this.incident_management_Panel.Size = new System.Drawing.Size(635, 472);
+            this.incident_management_Panel.Size = new System.Drawing.Size(635, 540);
             this.incident_management_Panel.TabIndex = 11;
             // 
             // go_create_incident_BTN
             // 
-            this.go_create_incident_BTN.Location = new System.Drawing.Point(409, 53);
+            this.go_create_incident_BTN.Location = new System.Drawing.Point(443, 38);
             this.go_create_incident_BTN.Name = "go_create_incident_BTN";
             this.go_create_incident_BTN.Size = new System.Drawing.Size(116, 52);
             this.go_create_incident_BTN.TabIndex = 1;
@@ -285,9 +289,9 @@
             // listView_incidents
             // 
             this.listView_incidents.HideSelection = false;
-            this.listView_incidents.Location = new System.Drawing.Point(95, 141);
+            this.listView_incidents.Location = new System.Drawing.Point(68, 115);
             this.listView_incidents.Name = "listView_incidents";
-            this.listView_incidents.Size = new System.Drawing.Size(430, 249);
+            this.listView_incidents.Size = new System.Drawing.Size(489, 413);
             this.listView_incidents.TabIndex = 0;
             this.listView_incidents.UseCompatibleStateImageBehavior = false;
             // 
@@ -472,14 +476,31 @@
             this.Clock.Interval = 10000;
             this.Clock.Tick += new System.EventHandler(this.Clock_Tick);
             // 
+            // txtBox_filterEmail
+            // 
+            this.txtBox_filterEmail.Location = new System.Drawing.Point(150, 53);
+            this.txtBox_filterEmail.Name = "txtBox_filterEmail";
+            this.txtBox_filterEmail.Size = new System.Drawing.Size(195, 20);
+            this.txtBox_filterEmail.TabIndex = 2;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(68, 53);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(70, 13);
+            this.label14.TabIndex = 3;
+            this.label14.Text = "Filter by email";
+            this.label14.Click += new System.EventHandler(this.label14_Click);
+            // 
             // Gardern_Group_desk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(638, 540);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.Dashboard_panel);
             this.Controls.Add(this.incident_management_Panel);
+            this.Controls.Add(this.Dashboard_panel);
             this.Controls.Add(this.create_ticket_Panel);
             this.Controls.Add(this.panel_dashboardViewTicketList);
             this.Name = "Gardern_Group_desk";
@@ -492,6 +513,7 @@
             this.panel_dashboardViewTicketList.ResumeLayout(false);
             this.panel_dashboardViewTicketList.PerformLayout();
             this.incident_management_Panel.ResumeLayout(false);
+            this.incident_management_Panel.PerformLayout();
             this.create_ticket_Panel.ResumeLayout(false);
             this.create_ticket_Panel.PerformLayout();
             this.ResumeLayout(false);
@@ -543,5 +565,7 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Timer Clock;
         private System.Windows.Forms.TextBox add_incident_type_TextBox;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtBox_filterEmail;
     }
 }

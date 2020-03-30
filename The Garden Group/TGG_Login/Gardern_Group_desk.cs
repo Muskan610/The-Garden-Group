@@ -128,6 +128,9 @@ namespace TGG_Login
             //if incident management menu item is clicked display panel and hide the rest
             //panel_dashboardViewTicketList.Show();
             ShowPanel("incident_menu");
+            //Button Go_create_incident_BTN;
+            //Go_create_incident_BTN.visible = false;
+
 
             //populate lists if panel gets selected
             PopulateDashboardIncidentList();
@@ -195,6 +198,11 @@ namespace TGG_Login
             incident_management_Panel.Hide();
             panel_dashboardViewTicketList.Hide();
             create_ticket_Panel.Show();
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
