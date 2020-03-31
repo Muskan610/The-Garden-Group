@@ -43,14 +43,13 @@
             this.incidentManagementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userManagementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel_dashboardViewTicketList = new System.Windows.Forms.Panel();
+            this.listView_incidents = new System.Windows.Forms.ListView();
+            this.lbl_Title_Incidentmanagement = new System.Windows.Forms.Label();
             this.lbl_Incidentsmanagement_listviewTitle_solved = new System.Windows.Forms.Label();
             this.listView_dashboard_SolvedTickets = new System.Windows.Forms.ListView();
-            this.lbl_Incidentsmanagement_listviewTitle_Current = new System.Windows.Forms.Label();
-            this.lbl_Title_Incidentmanagement = new System.Windows.Forms.Label();
-            this.listView_dashboard = new System.Windows.Forms.ListView();
-            this.incident_management_Panel = new System.Windows.Forms.Panel();
+            this.txtBox_filterEmail = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.go_create_incident_BTN = new System.Windows.Forms.Button();
-            this.listView_incidents = new System.Windows.Forms.ListView();
             this.create_ticket_Panel = new System.Windows.Forms.Panel();
             this.add_incident_type_TextBox = new System.Windows.Forms.TextBox();
             this.select_priority_ComboBox = new System.Windows.Forms.ComboBox();
@@ -71,12 +70,9 @@
             this.create_ticket_btn = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.Clock = new System.Windows.Forms.Timer(this.components);
-            this.txtBox_filterEmail = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.Dashboard_panel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panel_dashboardViewTicketList.SuspendLayout();
-            this.incident_management_Panel.SuspendLayout();
             this.create_ticket_Panel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -205,15 +201,40 @@
             // 
             // panel_dashboardViewTicketList
             // 
+            this.panel_dashboardViewTicketList.Controls.Add(this.listView_incidents);
+            this.panel_dashboardViewTicketList.Controls.Add(this.lbl_Title_Incidentmanagement);
             this.panel_dashboardViewTicketList.Controls.Add(this.lbl_Incidentsmanagement_listviewTitle_solved);
             this.panel_dashboardViewTicketList.Controls.Add(this.listView_dashboard_SolvedTickets);
-            this.panel_dashboardViewTicketList.Controls.Add(this.lbl_Incidentsmanagement_listviewTitle_Current);
-            this.panel_dashboardViewTicketList.Controls.Add(this.lbl_Title_Incidentmanagement);
-            this.panel_dashboardViewTicketList.Controls.Add(this.listView_dashboard);
+            this.panel_dashboardViewTicketList.Controls.Add(this.txtBox_filterEmail);
+            this.panel_dashboardViewTicketList.Controls.Add(this.label14);
+            this.panel_dashboardViewTicketList.Controls.Add(this.go_create_incident_BTN);
             this.panel_dashboardViewTicketList.Location = new System.Drawing.Point(0, 0);
             this.panel_dashboardViewTicketList.Name = "panel_dashboardViewTicketList";
             this.panel_dashboardViewTicketList.Size = new System.Drawing.Size(638, 534);
             this.panel_dashboardViewTicketList.TabIndex = 11;
+            // 
+            // listView_incidents
+            // 
+            this.listView_incidents.GridLines = true;
+            this.listView_incidents.HideSelection = false;
+            this.listView_incidents.Location = new System.Drawing.Point(31, 99);
+            this.listView_incidents.Name = "listView_incidents";
+            this.listView_incidents.Size = new System.Drawing.Size(575, 408);
+            this.listView_incidents.TabIndex = 1;
+            this.listView_incidents.UseCompatibleStateImageBehavior = false;
+            this.listView_incidents.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView_incidents_ColumnClick);
+            this.listView_incidents.SelectedIndexChanged += new System.EventHandler(this.listView_dashboard_SelectedIndexChanged);
+            // 
+            // lbl_Title_Incidentmanagement
+            // 
+            this.lbl_Title_Incidentmanagement.AutoSize = true;
+            this.lbl_Title_Incidentmanagement.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Title_Incidentmanagement.Location = new System.Drawing.Point(27, 27);
+            this.lbl_Title_Incidentmanagement.Name = "lbl_Title_Incidentmanagement";
+            this.lbl_Title_Incidentmanagement.Size = new System.Drawing.Size(138, 20);
+            this.lbl_Title_Incidentmanagement.TabIndex = 2;
+            this.lbl_Title_Incidentmanagement.Text = "Overview tickets";
+            this.lbl_Title_Incidentmanagement.Click += new System.EventHandler(this.label1_Click);
             // 
             // lbl_Incidentsmanagement_listviewTitle_solved
             // 
@@ -223,6 +244,7 @@
             this.lbl_Incidentsmanagement_listviewTitle_solved.Size = new System.Drawing.Size(85, 13);
             this.lbl_Incidentsmanagement_listviewTitle_solved.TabIndex = 5;
             this.lbl_Incidentsmanagement_listviewTitle_solved.Text = "Solved incidents";
+            this.lbl_Incidentsmanagement_listviewTitle_solved.Visible = false;
             // 
             // listView_dashboard_SolvedTickets
             // 
@@ -233,67 +255,34 @@
             this.listView_dashboard_SolvedTickets.Size = new System.Drawing.Size(85, 189);
             this.listView_dashboard_SolvedTickets.TabIndex = 4;
             this.listView_dashboard_SolvedTickets.UseCompatibleStateImageBehavior = false;
+            this.listView_dashboard_SolvedTickets.Visible = false;
             // 
-            // lbl_Incidentsmanagement_listviewTitle_Current
+            // txtBox_filterEmail
             // 
-            this.lbl_Incidentsmanagement_listviewTitle_Current.AutoSize = true;
-            this.lbl_Incidentsmanagement_listviewTitle_Current.Location = new System.Drawing.Point(42, 65);
-            this.lbl_Incidentsmanagement_listviewTitle_Current.Name = "lbl_Incidentsmanagement_listviewTitle_Current";
-            this.lbl_Incidentsmanagement_listviewTitle_Current.Size = new System.Drawing.Size(86, 13);
-            this.lbl_Incidentsmanagement_listviewTitle_Current.TabIndex = 3;
-            this.lbl_Incidentsmanagement_listviewTitle_Current.Text = "Current incidents";
+            this.txtBox_filterEmail.Location = new System.Drawing.Point(104, 57);
+            this.txtBox_filterEmail.Name = "txtBox_filterEmail";
+            this.txtBox_filterEmail.Size = new System.Drawing.Size(195, 20);
+            this.txtBox_filterEmail.TabIndex = 2;
             // 
-            // lbl_Title_Incidentmanagement
+            // label14
             // 
-            this.lbl_Title_Incidentmanagement.AutoSize = true;
-            this.lbl_Title_Incidentmanagement.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Title_Incidentmanagement.Location = new System.Drawing.Point(38, 21);
-            this.lbl_Title_Incidentmanagement.Name = "lbl_Title_Incidentmanagement";
-            this.lbl_Title_Incidentmanagement.Size = new System.Drawing.Size(138, 20);
-            this.lbl_Title_Incidentmanagement.TabIndex = 2;
-            this.lbl_Title_Incidentmanagement.Text = "Overview tickets";
-            this.lbl_Title_Incidentmanagement.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // listView_dashboard
-            // 
-            this.listView_dashboard.GridLines = true;
-            this.listView_dashboard.HideSelection = false;
-            this.listView_dashboard.Location = new System.Drawing.Point(42, 86);
-            this.listView_dashboard.Name = "listView_dashboard";
-            this.listView_dashboard.Size = new System.Drawing.Size(369, 358);
-            this.listView_dashboard.TabIndex = 1;
-            this.listView_dashboard.UseCompatibleStateImageBehavior = false;
-            this.listView_dashboard.SelectedIndexChanged += new System.EventHandler(this.listView_dashboard_SelectedIndexChanged);
-            // 
-            // incident_management_Panel
-            // 
-            this.incident_management_Panel.Controls.Add(this.label14);
-            this.incident_management_Panel.Controls.Add(this.txtBox_filterEmail);
-            this.incident_management_Panel.Controls.Add(this.go_create_incident_BTN);
-            this.incident_management_Panel.Controls.Add(this.listView_incidents);
-            this.incident_management_Panel.Location = new System.Drawing.Point(0, 0);
-            this.incident_management_Panel.Name = "incident_management_Panel";
-            this.incident_management_Panel.Size = new System.Drawing.Size(635, 540);
-            this.incident_management_Panel.TabIndex = 11;
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(28, 57);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(70, 13);
+            this.label14.TabIndex = 3;
+            this.label14.Text = "Filter by email";
+            this.label14.Click += new System.EventHandler(this.label14_Click);
             // 
             // go_create_incident_BTN
             // 
-            this.go_create_incident_BTN.Location = new System.Drawing.Point(443, 38);
+            this.go_create_incident_BTN.Location = new System.Drawing.Point(476, 38);
             this.go_create_incident_BTN.Name = "go_create_incident_BTN";
-            this.go_create_incident_BTN.Size = new System.Drawing.Size(116, 52);
+            this.go_create_incident_BTN.Size = new System.Drawing.Size(116, 40);
             this.go_create_incident_BTN.TabIndex = 1;
             this.go_create_incident_BTN.Text = "CREATE INCIDENT";
             this.go_create_incident_BTN.UseVisualStyleBackColor = true;
             this.go_create_incident_BTN.Click += new System.EventHandler(this.Go_create_incident_BTN_Click);
-            // 
-            // listView_incidents
-            // 
-            this.listView_incidents.HideSelection = false;
-            this.listView_incidents.Location = new System.Drawing.Point(68, 115);
-            this.listView_incidents.Name = "listView_incidents";
-            this.listView_incidents.Size = new System.Drawing.Size(489, 413);
-            this.listView_incidents.TabIndex = 0;
-            this.listView_incidents.UseCompatibleStateImageBehavior = false;
             // 
             // create_ticket_Panel
             // 
@@ -476,33 +465,15 @@
             this.Clock.Interval = 10000;
             this.Clock.Tick += new System.EventHandler(this.Clock_Tick);
             // 
-            // txtBox_filterEmail
-            // 
-            this.txtBox_filterEmail.Location = new System.Drawing.Point(150, 53);
-            this.txtBox_filterEmail.Name = "txtBox_filterEmail";
-            this.txtBox_filterEmail.Size = new System.Drawing.Size(195, 20);
-            this.txtBox_filterEmail.TabIndex = 2;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(68, 53);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(70, 13);
-            this.label14.TabIndex = 3;
-            this.label14.Text = "Filter by email";
-            this.label14.Click += new System.EventHandler(this.label14_Click);
-            // 
             // Gardern_Group_desk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(638, 540);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.incident_management_Panel);
+            this.Controls.Add(this.panel_dashboardViewTicketList);
             this.Controls.Add(this.Dashboard_panel);
             this.Controls.Add(this.create_ticket_Panel);
-            this.Controls.Add(this.panel_dashboardViewTicketList);
             this.Name = "Gardern_Group_desk";
             this.Text = "Garden group desk";
             this.Load += new System.EventHandler(this.Gardern_Group_desk_Load);
@@ -512,8 +483,6 @@
             this.menuStrip1.PerformLayout();
             this.panel_dashboardViewTicketList.ResumeLayout(false);
             this.panel_dashboardViewTicketList.PerformLayout();
-            this.incident_management_Panel.ResumeLayout(false);
-            this.incident_management_Panel.PerformLayout();
             this.create_ticket_Panel.ResumeLayout(false);
             this.create_ticket_Panel.PerformLayout();
             this.ResumeLayout(false);
@@ -537,14 +506,11 @@
         private System.Windows.Forms.ToolStripMenuItem incidentManagementToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem userManagementToolStripMenuItem;
         private System.Windows.Forms.Panel panel_dashboardViewTicketList;
-        private System.Windows.Forms.ListView listView_dashboard;
+        private System.Windows.Forms.ListView listView_incidents;
         private System.Windows.Forms.Label lbl_Title_Incidentmanagement;
         private System.Windows.Forms.Label lbl_Incidentsmanagement_listviewTitle_solved;
         private System.Windows.Forms.ListView listView_dashboard_SolvedTickets;
-        private System.Windows.Forms.Label lbl_Incidentsmanagement_listviewTitle_Current;
-        private System.Windows.Forms.Panel incident_management_Panel;
         private System.Windows.Forms.Button go_create_incident_BTN;
-        private System.Windows.Forms.ListView listView_incidents;
         private System.Windows.Forms.Panel create_ticket_Panel;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;

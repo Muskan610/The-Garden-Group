@@ -12,6 +12,12 @@ namespace TGG_App
         public Login()
         {
             InitializeComponent();
+           // UnameTxtbox.Focus();
+        }
+
+        private void Login_Load(object sender, System.EventArgs e)
+        {
+            ActiveControl = UnameTxtbox;
         }
 
         private void Loginbtn_Click(object sender, EventArgs e)

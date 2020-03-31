@@ -1,19 +1,27 @@
-﻿using System;
+﻿using System.Drawing;
+using System.Collections;
+using System.ComponentModel;
 using System.Windows.Forms;
+using System.Data;
 using TGG_Model;
 using TGG_Service;
+using System;
 
 namespace TGG_Login
 {
     public partial class Gardern_Group_desk : Form
     {
         private Ticket_Service ticket_Service;
+        private ListViewColumnSorter lvwColumnSorter;
+
         public Gardern_Group_desk()
         {
             InitializeComponent();
 
             ticket_Service = new Ticket_Service();
-            
+
+            lvwColumnSorter = new ListViewColumnSorter();
+            this.listView_incidents.ListViewItemSorter = lvwColumnSorter;
             //calls these methods to show overview of all incidents
             DisplayUnresolved();
             DisplayPastDeadline();
@@ -39,7 +47,6 @@ namespace TGG_Login
         private void Show_list_btn_Click(object sender, EventArgs e)
         {
             Dashboard_panel.Hide();
-            incident_management_Panel.Hide();
             create_ticket_Panel.Hide();
             panel_dashboardViewTicketList.Show();
 
@@ -49,34 +56,33 @@ namespace TGG_Login
         // populates listview with tickets
         private void PopulateDashboardIncidentList()
         {
-            listView_dashboard.Clear();
+            listView_incidents.Clear();
 
-            listView_dashboard.View = View.Details;
+            listView_incidents.View = View.Details;
 
-            listView_dashboard.Columns.Add("Requested By", 100, HorizontalAlignment.Left);
-            listView_dashboard.Columns.Add("Request Date", 100, HorizontalAlignment.Left);
-            listView_dashboard.Columns.Add("Deadline", 100, HorizontalAlignment.Left);
-            listView_dashboard.Columns.Add("Subject", 100, HorizontalAlignment.Left);
-            listView_dashboard.Columns.Add("Description", 100, HorizontalAlignment.Left);
-            listView_dashboard.Columns.Add("Status", 100, HorizontalAlignment.Left);
-            listView_dashboard.Columns.Add("Priority", 100, HorizontalAlignment.Left);
-            listView_dashboard.Columns.Add("Type", 100, HorizontalAlignment.Left);
+            listView_incidents.Columns.Add("Requested By", 100, HorizontalAlignment.Left);         
+            listView_incidents.Columns.Add("Subject", 100, HorizontalAlignment.Left);
+            //listView_dashboard.Columns.Add("Description", 100, HorizontalAlignment.Left);
+            listView_incidents.Columns.Add("Status", 100, HorizontalAlignment.Left);
+            listView_incidents.Columns.Add("Priority", 100, HorizontalAlignment.Left);
+            listView_incidents.Columns.Add("Request Date", 100, HorizontalAlignment.Left);
+            listView_incidents.Columns.Add("Deadline", 100, HorizontalAlignment.Left);
+            //listView_dashboard.Columns.Add("Type", 100, HorizontalAlignment.Left);
 
             foreach (Ticket t in ticket_Service.GetAllUnresolvedTickets(ticket_Service.GetAllTickets()))
             {
-                ListViewItem li = new ListViewItem(t.GetRequestedBy());
-
-                li.SubItems.Add(t.GetRequestDate().ToString("yyyy/MM/dd HH:mm:ss"));
-                li.SubItems.Add(t.GetDeadline().ToString("yyyy/MM/dd HH:mm:ss"));
+                ListViewItem li = new ListViewItem(t.GetRequestedBy());                         
                 li.SubItems.Add(t.GetSubject());
-                li.SubItems.Add(t.GetDescription());
+                //li.SubItems.Add(t.GetDescription());
                 li.SubItems.Add(t.GetStatus().ToString());
                 li.SubItems.Add(t.GetPriority().ToString());
-                li.SubItems.Add(t.GetType().ToString());
+                li.SubItems.Add(t.GetRequestDate().ToString("yyyy/MM/dd HH:mm:ss"));
+                li.SubItems.Add(t.GetDeadline().ToString("yyyy/MM/dd HH:mm:ss"));
+                //li.SubItems.Add(t.GetType().ToString());
 
                 li.Tag=t;
 
-                listView_dashboard.Items.Add(li);
+                listView_incidents.Items.Add(li);
             }
         }
 
@@ -125,29 +131,20 @@ namespace TGG_Login
 
         private void incidentManagementToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //if incident management menu item is clicked display panel and hide the rest
-            //panel_dashboardViewTicketList.Show();
             ShowPanel("incident_menu");
-            //Button Go_create_incident_BTN;
-            //Go_create_incident_BTN.visible = false;
+            Dashboard_panel.Hide();
+            create_ticket_Panel.Hide();
+            panel_dashboardViewTicketList.Show();
 
-
-            //populate lists if panel gets selected
             PopulateDashboardIncidentList();
-            PopulateDashboardIncidentList_Solved();
+            //PopulateDashboardIncidentList_Solved();
         }
         // this method shows and hides 
         private void ShowPanel(string panelName)
         {
-            if (panelName=="incident_menu")
+           if (panelName=="dashboard")
             {
-                Dashboard_panel.Hide();
-                incident_management_Panel.Show();         
-            }
-            else if (panelName=="dashboard")
-            {
-                incident_management_Panel.Hide();
-                Dashboard_panel.Show();
+               Dashboard_panel.Show();
             }
         }
         //useless buttons we accidently pressed but no code belongs to.
@@ -169,37 +166,64 @@ namespace TGG_Login
        
         private void Create_ticket_btn_Click(object sender, EventArgs e)
         {
+            PopulateDashboardIncidentList();
             create_ticket_Panel.Hide();
+            panel_dashboardViewTicketList.Show();
 
             ticket_Service.WriteTicket_service(type_name_textBox.Text, ticket_deadlineTimePicker.Value, DateTime.Now, ticket_subject_textBox.Text, ticket_description_TextBox.Text, Status.Pending,select_priority_ComboBox.SelectedItem.ToString(),add_incident_type_TextBox.Text);
 
             DisplayUnresolved();
             DisplayPastDeadline();
-
-            incident_management_Panel.Show();
         }
 
         private void Btn_cancel_of_create_ticket_Click(object sender, EventArgs e)
         {
+            PopulateDashboardIncidentList();
             create_ticket_Panel.Hide();
+            panel_dashboardViewTicketList.Show();
 
             type_name_textBox.Clear();
             ticket_deadlineTimePicker.Value = DateTime.Now;
             ticket_subject_textBox.Clear();
             ticket_description_TextBox.Clear();
             add_incident_type_TextBox.Clear();
-
-            incident_management_Panel.Show();
         }
 
         private void Go_create_incident_BTN_Click(object sender, EventArgs e)
         {
             Dashboard_panel.Hide();
-            incident_management_Panel.Hide();
             panel_dashboardViewTicketList.Hide();
             create_ticket_Panel.Show();
         }
+        //this.listView_incidents.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView_incidents_ColumnClick);
+        private void listView_incidents_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
 
+            ListView myListView = (ListView)sender;
+
+            // Determine if clicked column is already the column that is being sorted.
+            if (e.Column == lvwColumnSorter.SortColumn)
+            {
+                // Reverse the current sort direction for this column.
+                if (lvwColumnSorter.Order == SortOrder.Ascending)
+                {
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                lvwColumnSorter.SortColumn = e.Column;
+                lvwColumnSorter.Order = SortOrder.Ascending;
+            }
+
+            // Perform the sort with these new sort options.
+            myListView.Sort();
+        }
         private void label14_Click(object sender, EventArgs e)
         {
 

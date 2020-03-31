@@ -82,6 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColumnSorter.cs" />
     <Compile Include="Gardern_Group_desk.cs">
       <SubType>Form</SubType>
     </Compile>
