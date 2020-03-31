@@ -14,7 +14,7 @@ namespace TGG_Login
     {
         private Ticket_Service ticket_Service;
         private ListViewColumnSorter lvwColumnSorter;
-
+        List<string> emaillist;
         public Gardern_Group_desk()
         {
             InitializeComponent();
@@ -28,7 +28,7 @@ namespace TGG_Login
 
             //calls these methods to show overview of all incidents
             DisplayUnresolved();
-            DisplayPastDeadline();
+            DisplayPastDeadline();           
         }
         //shows number of unresolved incidents
         private void DisplayUnresolved()
@@ -57,6 +57,7 @@ namespace TGG_Login
             PopulateDashboardIncidentList();
             PopulateDashboardIncidentList_Solved();
         }
+
         // populates listview with tickets
         private void PopulateDashboardIncidentList()
         {
@@ -100,6 +101,65 @@ namespace TGG_Login
                 listView_incidents.Items.Add(li);
             }
         }
+        private void txtBox_filterEmail_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void txtBox_filterEmail_TextChanged_1(object sender, EventArgs e)
+        {
+            if (txtBox_filterEmail.Text == null)
+            {
+                PopulateDashboardIncidentList();
+            }
+            else
+            {
+                PopulateIncidentList_ByEmail(txtBox_filterEmail.Text.ToLower());
+            }
+
+        }
+
+        private void PopulateIncidentList_ByEmail(string filter)
+        {
+            listView_incidents.Clear();
+            
+            listView_incidents.View = View.Details;
+            ColumnHeader columnheader;// Used for creating column headers.
+            //creating a list with column names
+            List<string> columns = new List<string>();
+            columns.Add("Requested By");
+            columns.Add("Subject");
+            columns.Add("Status");
+            columns.Add("Priority");
+            columns.Add("Request Date");
+            columns.Add("Deadline");
+
+            // Create some column headers for the data. 
+            foreach (string col in columns)
+            {
+                columnheader = new ColumnHeader();
+                columnheader.Text = col;
+                columnheader.Width = 100;
+                columnheader.TextAlign = HorizontalAlignment.Left;
+                this.listView_incidents.Columns.Add(columnheader);
+            }
+
+            foreach (Ticket t in ticket_Service.GetAllUnresolvedTickets(ticket_Service.GetAllTickets()))
+            {
+                if (t.GetRequestedBy().ToLower().Contains(filter))
+                {
+                    ListViewItem li = new ListViewItem(t.GetRequestedBy());
+                    li.SubItems.Add(t.GetSubject());
+                    //li.SubItems.Add(t.GetDescription());
+                    li.SubItems.Add(t.GetStatus().ToString());
+                    li.SubItems.Add(t.GetPriority().ToString());
+                    li.SubItems.Add(t.GetRequestDate().ToString("yyyy/MM/dd HH:mm:ss"));
+                    li.SubItems.Add(t.GetDeadline().ToString("yyyy/MM/dd HH:mm:ss"));
+                    li.Tag = t;
+                    listView_incidents.Items.Add(li);
+                }
+            }
+        }
 
         // populates listview with tickets
         private void PopulateDashboardIncidentList_Solved()
@@ -139,6 +199,11 @@ namespace TGG_Login
 
         private void dashboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            dashboardToolStripMenuItem.BackColor= SystemColors.ActiveCaption;
+            incidentManagementToolStripMenuItem.BackColor = SystemColors.GradientInactiveCaption;
+            userManagementToolStripMenuItem.BackColor = SystemColors.GradientInactiveCaption;
+
+
             //if dasboard menu item is clicked display dashboard panel and hide the rest
             ShowPanel("dashboard");
             //panel_dashboardViewTicketList.Hide();
@@ -146,6 +211,10 @@ namespace TGG_Login
 
         private void incidentManagementToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            incidentManagementToolStripMenuItem.BackColor = SystemColors.ActiveCaption;
+            dashboardToolStripMenuItem.BackColor = SystemColors.GradientInactiveCaption;
+            userManagementToolStripMenuItem.BackColor = SystemColors.GradientInactiveCaption;
+
             ShowPanel("incident_menu");
             Dashboard_panel.Hide();
             create_ticket_Panel.Hide();
@@ -242,6 +311,13 @@ namespace TGG_Login
         private void label14_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void userManagementToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            incidentManagementToolStripMenuItem.BackColor = SystemColors.GradientInactiveCaption;
+            dashboardToolStripMenuItem.BackColor = SystemColors.GradientInactiveCaption;
+            userManagementToolStripMenuItem.BackColor = SystemColors.ActiveCaption;
         }
     }
 }

@@ -70,6 +70,7 @@
             this.create_ticket_btn = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.Clock = new System.Windows.Forms.Timer(this.components);
+            this.btn_exportCsv = new System.Windows.Forms.Button();
             this.Dashboard_panel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panel_dashboardViewTicketList.SuspendLayout();
@@ -181,6 +182,7 @@
             // 
             // dashboardToolStripMenuItem
             // 
+            this.dashboardToolStripMenuItem.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.dashboardToolStripMenuItem.Name = "dashboardToolStripMenuItem";
             this.dashboardToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
             this.dashboardToolStripMenuItem.Text = "Dashboard";
@@ -188,6 +190,7 @@
             // 
             // incidentManagementToolStripMenuItem
             // 
+            this.incidentManagementToolStripMenuItem.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.incidentManagementToolStripMenuItem.Name = "incidentManagementToolStripMenuItem";
             this.incidentManagementToolStripMenuItem.Size = new System.Drawing.Size(136, 20);
             this.incidentManagementToolStripMenuItem.Text = "Incident Management";
@@ -195,12 +198,15 @@
             // 
             // userManagementToolStripMenuItem
             // 
+            this.userManagementToolStripMenuItem.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.userManagementToolStripMenuItem.Name = "userManagementToolStripMenuItem";
             this.userManagementToolStripMenuItem.Size = new System.Drawing.Size(116, 20);
             this.userManagementToolStripMenuItem.Text = "User Management";
+            this.userManagementToolStripMenuItem.Click += new System.EventHandler(this.userManagementToolStripMenuItem_Click);
             // 
             // panel_dashboardViewTicketList
             // 
+            this.panel_dashboardViewTicketList.Controls.Add(this.btn_exportCsv);
             this.panel_dashboardViewTicketList.Controls.Add(this.listView_incidents);
             this.panel_dashboardViewTicketList.Controls.Add(this.lbl_Title_Incidentmanagement);
             this.panel_dashboardViewTicketList.Controls.Add(this.lbl_Incidentsmanagement_listviewTitle_solved);
@@ -219,7 +225,7 @@
             this.listView_incidents.HideSelection = false;
             this.listView_incidents.Location = new System.Drawing.Point(31, 99);
             this.listView_incidents.Name = "listView_incidents";
-            this.listView_incidents.Size = new System.Drawing.Size(575, 408);
+            this.listView_incidents.Size = new System.Drawing.Size(575, 370);
             this.listView_incidents.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listView_incidents.TabIndex = 1;
             this.listView_incidents.UseCompatibleStateImageBehavior = false;
@@ -260,19 +266,20 @@
             // 
             // txtBox_filterEmail
             // 
-            this.txtBox_filterEmail.Location = new System.Drawing.Point(104, 57);
+            this.txtBox_filterEmail.Location = new System.Drawing.Point(145, 57);
             this.txtBox_filterEmail.Name = "txtBox_filterEmail";
             this.txtBox_filterEmail.Size = new System.Drawing.Size(195, 20);
             this.txtBox_filterEmail.TabIndex = 2;
+            this.txtBox_filterEmail.TextChanged += new System.EventHandler(this.txtBox_filterEmail_TextChanged_1);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(28, 57);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(70, 13);
+            this.label14.Size = new System.Drawing.Size(95, 13);
             this.label14.TabIndex = 3;
-            this.label14.Text = "Filter by email";
+            this.label14.Text = "Filter by user/email";
             this.label14.Click += new System.EventHandler(this.label14_Click);
             // 
             // go_create_incident_BTN
@@ -466,14 +473,25 @@
             this.Clock.Interval = 10000;
             this.Clock.Tick += new System.EventHandler(this.Clock_Tick);
             // 
+            // btn_exportCsv
+            // 
+            this.btn_exportCsv.BackColor = System.Drawing.Color.LightGreen;
+            this.btn_exportCsv.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_exportCsv.Location = new System.Drawing.Point(429, 484);
+            this.btn_exportCsv.Name = "btn_exportCsv";
+            this.btn_exportCsv.Size = new System.Drawing.Size(177, 42);
+            this.btn_exportCsv.TabIndex = 6;
+            this.btn_exportCsv.Text = "Export Incidents List to csv file";
+            this.btn_exportCsv.UseVisualStyleBackColor = false;
+            // 
             // Gardern_Group_desk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(638, 540);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.panel_dashboardViewTicketList);
             this.Controls.Add(this.Dashboard_panel);
+            this.Controls.Add(this.panel_dashboardViewTicketList);
             this.Controls.Add(this.create_ticket_Panel);
             this.Name = "Gardern_Group_desk";
             this.Text = "Garden group desk";
@@ -534,5 +552,6 @@
         private System.Windows.Forms.TextBox add_incident_type_TextBox;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtBox_filterEmail;
+        private System.Windows.Forms.Button btn_exportCsv;
     }
 }
