@@ -220,6 +220,7 @@
             this.listView_incidents.Location = new System.Drawing.Point(31, 99);
             this.listView_incidents.Name = "listView_incidents";
             this.listView_incidents.Size = new System.Drawing.Size(575, 408);
+            this.listView_incidents.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listView_incidents.TabIndex = 1;
             this.listView_incidents.UseCompatibleStateImageBehavior = false;
             this.listView_incidents.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView_incidents_ColumnClick);

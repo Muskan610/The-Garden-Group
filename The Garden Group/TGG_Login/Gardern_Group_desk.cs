@@ -6,6 +6,7 @@ using System.Data;
 using TGG_Model;
 using TGG_Service;
 using System;
+using System.Collections.Generic;
 
 namespace TGG_Login
 {
@@ -20,8 +21,11 @@ namespace TGG_Login
 
             ticket_Service = new Ticket_Service();
 
+            // Create an instance of a ListView column sorter and assign it 
+            // to the ListView control
             lvwColumnSorter = new ListViewColumnSorter();
             this.listView_incidents.ListViewItemSorter = lvwColumnSorter;
+
             //calls these methods to show overview of all incidents
             DisplayUnresolved();
             DisplayPastDeadline();
@@ -59,15 +63,26 @@ namespace TGG_Login
             listView_incidents.Clear();
 
             listView_incidents.View = View.Details;
+            ColumnHeader columnheader;// Used for creating column headers.
 
-            listView_incidents.Columns.Add("Requested By", 100, HorizontalAlignment.Left);         
-            listView_incidents.Columns.Add("Subject", 100, HorizontalAlignment.Left);
-            //listView_dashboard.Columns.Add("Description", 100, HorizontalAlignment.Left);
-            listView_incidents.Columns.Add("Status", 100, HorizontalAlignment.Left);
-            listView_incidents.Columns.Add("Priority", 100, HorizontalAlignment.Left);
-            listView_incidents.Columns.Add("Request Date", 100, HorizontalAlignment.Left);
-            listView_incidents.Columns.Add("Deadline", 100, HorizontalAlignment.Left);
-            //listView_dashboard.Columns.Add("Type", 100, HorizontalAlignment.Left);
+                //creating a list with column names
+                List<string> columns = new List<string>();
+                columns.Add("Requested By");
+                columns.Add("Subject");
+                columns.Add("Status");
+                columns.Add("Priority");
+                columns.Add("Request Date");
+                columns.Add("Deadline");
+
+                // Create some column headers for the data. 
+                foreach (string col in columns)
+                {
+                    columnheader = new ColumnHeader();
+                    columnheader.Text = col;
+                    columnheader.Width = 100;
+                    columnheader.TextAlign = HorizontalAlignment.Left;
+                    this.listView_incidents.Columns.Add(columnheader);
+                }
 
             foreach (Ticket t in ticket_Service.GetAllUnresolvedTickets(ticket_Service.GetAllTickets()))
             {
@@ -195,7 +210,7 @@ namespace TGG_Login
             panel_dashboardViewTicketList.Hide();
             create_ticket_Panel.Show();
         }
-        //this.listView_incidents.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView_incidents_ColumnClick);
+        
         private void listView_incidents_ColumnClick(object sender, ColumnClickEventArgs e)
         {
 
