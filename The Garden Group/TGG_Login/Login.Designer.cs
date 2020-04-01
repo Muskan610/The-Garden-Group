@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -42,16 +43,17 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(194, 27);
+            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label1.Location = new System.Drawing.Point(60, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 13);
+            this.label1.Size = new System.Drawing.Size(346, 31);
             this.label1.TabIndex = 0;
-            this.label1.Text = "NoDesk: TGG";
+            this.label1.Text = "NoDesk: The Garden Group";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(57, 57);
+            this.label2.Location = new System.Drawing.Point(63, 81);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(354, 13);
             this.label2.TabIndex = 1;
@@ -60,15 +62,16 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(106, 111);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(106, 126);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 13);
+            this.label3.Size = new System.Drawing.Size(63, 13);
             this.label3.TabIndex = 2;
             this.label3.Text = "Username";
             // 
             // UnameTxtbox
             // 
-            this.UnameTxtbox.Location = new System.Drawing.Point(109, 141);
+            this.UnameTxtbox.Location = new System.Drawing.Point(109, 151);
             this.UnameTxtbox.Name = "UnameTxtbox";
             this.UnameTxtbox.Size = new System.Drawing.Size(269, 20);
             this.UnameTxtbox.TabIndex = 3;
@@ -77,16 +80,17 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(106, 207);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(106, 225);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 13);
+            this.label4.Size = new System.Drawing.Size(61, 13);
             this.label4.TabIndex = 2;
             this.label4.Text = "Password";
             // 
             // PasswdTxtbox
             // 
             this.PasswdTxtbox.AcceptsReturn = true;
-            this.PasswdTxtbox.Location = new System.Drawing.Point(109, 236);
+            this.PasswdTxtbox.Location = new System.Drawing.Point(109, 253);
             this.PasswdTxtbox.Name = "PasswdTxtbox";
             this.PasswdTxtbox.Size = new System.Drawing.Size(275, 20);
             this.PasswdTxtbox.TabIndex = 3;
@@ -94,8 +98,10 @@
             // 
             // Loginbtn
             // 
-            this.Loginbtn.BackColor = System.Drawing.Color.LightSeaGreen;
-            this.Loginbtn.Location = new System.Drawing.Point(176, 313);
+            this.Loginbtn.BackColor = System.Drawing.Color.LightGreen;
+            this.Loginbtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Loginbtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Loginbtn.Location = new System.Drawing.Point(176, 339);
             this.Loginbtn.Name = "Loginbtn";
             this.Loginbtn.Size = new System.Drawing.Size(107, 45);
             this.Loginbtn.TabIndex = 4;
@@ -106,7 +112,7 @@
             // RemMeCheckBox
             // 
             this.RemMeCheckBox.AutoSize = true;
-            this.RemMeCheckBox.Location = new System.Drawing.Point(109, 279);
+            this.RemMeCheckBox.Location = new System.Drawing.Point(109, 305);
             this.RemMeCheckBox.Name = "RemMeCheckBox";
             this.RemMeCheckBox.Size = new System.Drawing.Size(95, 17);
             this.RemMeCheckBox.TabIndex = 5;
@@ -117,7 +123,7 @@
             // ForgorPassLinkLabel
             // 
             this.ForgorPassLinkLabel.AutoSize = true;
-            this.ForgorPassLinkLabel.Location = new System.Drawing.Point(292, 283);
+            this.ForgorPassLinkLabel.Location = new System.Drawing.Point(292, 309);
             this.ForgorPassLinkLabel.Name = "ForgorPassLinkLabel";
             this.ForgorPassLinkLabel.Size = new System.Drawing.Size(92, 13);
             this.ForgorPassLinkLabel.TabIndex = 6;
@@ -129,7 +135,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(477, 406);
+            this.ClientSize = new System.Drawing.Size(491, 406);
             this.Controls.Add(this.ForgorPassLinkLabel);
             this.Controls.Add(this.RemMeCheckBox);
             this.Controls.Add(this.Loginbtn);
@@ -139,6 +145,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Login";
             this.Text = "Login";
             this.ResumeLayout(false);

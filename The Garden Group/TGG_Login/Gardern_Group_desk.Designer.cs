@@ -29,7 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gardern_Group_desk));
             this.Dashboard_panel = new System.Windows.Forms.Panel();
+            this.past_deadline_circularProgressBar = new CircularProgressBar.CircularProgressBar();
+            this.unresolved_ProgressBar = new CircularProgressBar.CircularProgressBar();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -41,16 +44,18 @@
             this.incidentManagementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userManagementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel_incident_management = new System.Windows.Forms.Panel();
+            this.btn_Incidentmanagement_ShowSolvedTickets = new System.Windows.Forms.Button();
+            this.btn_incidentmangement_ShowAllTickers = new System.Windows.Forms.Button();
             this.btn_open_ticket = new System.Windows.Forms.Button();
             this.btn_exportCsv = new System.Windows.Forms.Button();
             this.listView_incidents = new System.Windows.Forms.ListView();
             this.lbl_Title_Incidentmanagement = new System.Windows.Forms.Label();
-            this.lbl_Incidentsmanagement_listviewTitle_solved = new System.Windows.Forms.Label();
             this.listView_dashboard_SolvedTickets = new System.Windows.Forms.ListView();
             this.txtBox_filterEmail = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.go_create_incident_BTN = new System.Windows.Forms.Button();
             this.panel_ticketOverview = new System.Windows.Forms.Panel();
+            this.btn_Ticketstatistics_UpdateTicketStatus = new System.Windows.Forms.Button();
             this.lbl_ticket_info_description = new System.Windows.Forms.Label();
             this.lbl_ticket_info_whenTicketWasSbmt = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
@@ -92,8 +97,7 @@
             this.create_ticket_btn = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.Clock = new System.Windows.Forms.Timer(this.components);
-            this.unresolved_ProgressBar = new CircularProgressBar.CircularProgressBar();
-            this.past_deadline_circularProgressBar = new CircularProgressBar.CircularProgressBar();
+            this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.Dashboard_panel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panel_incident_management.SuspendLayout();
@@ -115,6 +119,68 @@
             this.Dashboard_panel.Name = "Dashboard_panel";
             this.Dashboard_panel.Size = new System.Drawing.Size(638, 537);
             this.Dashboard_panel.TabIndex = 8;
+            // 
+            // past_deadline_circularProgressBar
+            // 
+            this.past_deadline_circularProgressBar.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner;
+            this.past_deadline_circularProgressBar.AnimationSpeed = 500;
+            this.past_deadline_circularProgressBar.BackColor = System.Drawing.Color.Transparent;
+            this.past_deadline_circularProgressBar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.past_deadline_circularProgressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.past_deadline_circularProgressBar.InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.past_deadline_circularProgressBar.InnerMargin = 2;
+            this.past_deadline_circularProgressBar.InnerWidth = -1;
+            this.past_deadline_circularProgressBar.Location = new System.Drawing.Point(348, 230);
+            this.past_deadline_circularProgressBar.MarqueeAnimationSpeed = 2000;
+            this.past_deadline_circularProgressBar.Name = "past_deadline_circularProgressBar";
+            this.past_deadline_circularProgressBar.OuterColor = System.Drawing.Color.Gray;
+            this.past_deadline_circularProgressBar.OuterMargin = -25;
+            this.past_deadline_circularProgressBar.OuterWidth = 26;
+            this.past_deadline_circularProgressBar.ProgressColor = System.Drawing.Color.Red;
+            this.past_deadline_circularProgressBar.ProgressWidth = 25;
+            this.past_deadline_circularProgressBar.SecondaryFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.past_deadline_circularProgressBar.Size = new System.Drawing.Size(190, 165);
+            this.past_deadline_circularProgressBar.StartAngle = 270;
+            this.past_deadline_circularProgressBar.SubscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.past_deadline_circularProgressBar.SubscriptMargin = new System.Windows.Forms.Padding(10, -35, 0, 0);
+            this.past_deadline_circularProgressBar.SubscriptText = "";
+            this.past_deadline_circularProgressBar.SuperscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.past_deadline_circularProgressBar.SuperscriptMargin = new System.Windows.Forms.Padding(10, 35, 0, 0);
+            this.past_deadline_circularProgressBar.SuperscriptText = "";
+            this.past_deadline_circularProgressBar.TabIndex = 12;
+            this.past_deadline_circularProgressBar.TextMargin = new System.Windows.Forms.Padding(8, 8, 0, 0);
+            this.past_deadline_circularProgressBar.Value = 68;
+            // 
+            // unresolved_ProgressBar
+            // 
+            this.unresolved_ProgressBar.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner;
+            this.unresolved_ProgressBar.AnimationSpeed = 500;
+            this.unresolved_ProgressBar.BackColor = System.Drawing.Color.Transparent;
+            this.unresolved_ProgressBar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.unresolved_ProgressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.unresolved_ProgressBar.InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.unresolved_ProgressBar.InnerMargin = 2;
+            this.unresolved_ProgressBar.InnerWidth = -1;
+            this.unresolved_ProgressBar.Location = new System.Drawing.Point(59, 229);
+            this.unresolved_ProgressBar.MarqueeAnimationSpeed = 2000;
+            this.unresolved_ProgressBar.Name = "unresolved_ProgressBar";
+            this.unresolved_ProgressBar.OuterColor = System.Drawing.Color.Gray;
+            this.unresolved_ProgressBar.OuterMargin = -25;
+            this.unresolved_ProgressBar.OuterWidth = 26;
+            this.unresolved_ProgressBar.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.unresolved_ProgressBar.ProgressWidth = 25;
+            this.unresolved_ProgressBar.SecondaryFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.unresolved_ProgressBar.Size = new System.Drawing.Size(194, 176);
+            this.unresolved_ProgressBar.StartAngle = 270;
+            this.unresolved_ProgressBar.SubscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.unresolved_ProgressBar.SubscriptMargin = new System.Windows.Forms.Padding(10, -35, 0, 0);
+            this.unresolved_ProgressBar.SubscriptText = "";
+            this.unresolved_ProgressBar.SuperscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.unresolved_ProgressBar.SuperscriptMargin = new System.Windows.Forms.Padding(10, 35, 0, 0);
+            this.unresolved_ProgressBar.SuperscriptText = "";
+            this.unresolved_ProgressBar.TabIndex = 11;
+            this.unresolved_ProgressBar.TextMargin = new System.Windows.Forms.Padding(8, 8, 0, 0);
+            this.unresolved_ProgressBar.Value = 68;
             // 
             // label9
             // 
@@ -212,11 +278,12 @@
             // 
             // panel_incident_management
             // 
+            this.panel_incident_management.Controls.Add(this.btn_Incidentmanagement_ShowSolvedTickets);
+            this.panel_incident_management.Controls.Add(this.btn_incidentmangement_ShowAllTickers);
             this.panel_incident_management.Controls.Add(this.btn_open_ticket);
             this.panel_incident_management.Controls.Add(this.btn_exportCsv);
             this.panel_incident_management.Controls.Add(this.listView_incidents);
             this.panel_incident_management.Controls.Add(this.lbl_Title_Incidentmanagement);
-            this.panel_incident_management.Controls.Add(this.lbl_Incidentsmanagement_listviewTitle_solved);
             this.panel_incident_management.Controls.Add(this.listView_dashboard_SolvedTickets);
             this.panel_incident_management.Controls.Add(this.txtBox_filterEmail);
             this.panel_incident_management.Controls.Add(this.label14);
@@ -226,11 +293,32 @@
             this.panel_incident_management.Size = new System.Drawing.Size(638, 534);
             this.panel_incident_management.TabIndex = 11;
             // 
+            // btn_Incidentmanagement_ShowSolvedTickets
+            // 
+            this.btn_Incidentmanagement_ShowSolvedTickets.Location = new System.Drawing.Point(250, 484);
+            this.btn_Incidentmanagement_ShowSolvedTickets.Name = "btn_Incidentmanagement_ShowSolvedTickets";
+            this.btn_Incidentmanagement_ShowSolvedTickets.Size = new System.Drawing.Size(128, 42);
+            this.btn_Incidentmanagement_ShowSolvedTickets.TabIndex = 8;
+            this.btn_Incidentmanagement_ShowSolvedTickets.Text = "Show Solved Tickets";
+            this.btn_Incidentmanagement_ShowSolvedTickets.UseVisualStyleBackColor = true;
+            this.btn_Incidentmanagement_ShowSolvedTickets.Click += new System.EventHandler(this.btn_Incidentmanagement_ShowSolvedTickets_Click);
+            // 
+            // btn_incidentmangement_ShowAllTickers
+            // 
+            this.btn_incidentmangement_ShowAllTickers.Location = new System.Drawing.Point(250, 484);
+            this.btn_incidentmangement_ShowAllTickers.Name = "btn_incidentmangement_ShowAllTickers";
+            this.btn_incidentmangement_ShowAllTickers.Size = new System.Drawing.Size(128, 42);
+            this.btn_incidentmangement_ShowAllTickers.TabIndex = 9;
+            this.btn_incidentmangement_ShowAllTickers.Text = "Show all Tickets";
+            this.btn_incidentmangement_ShowAllTickers.UseVisualStyleBackColor = true;
+            this.btn_incidentmangement_ShowAllTickers.Visible = false;
+            this.btn_incidentmangement_ShowAllTickers.Click += new System.EventHandler(this.button1_Click);
+            // 
             // btn_open_ticket
             // 
-            this.btn_open_ticket.Location = new System.Drawing.Point(86, 484);
+            this.btn_open_ticket.Location = new System.Drawing.Point(20, 484);
             this.btn_open_ticket.Name = "btn_open_ticket";
-            this.btn_open_ticket.Size = new System.Drawing.Size(137, 40);
+            this.btn_open_ticket.Size = new System.Drawing.Size(137, 42);
             this.btn_open_ticket.TabIndex = 7;
             this.btn_open_ticket.Text = "Open incident ticket";
             this.btn_open_ticket.UseVisualStyleBackColor = true;
@@ -246,16 +334,17 @@
             this.btn_exportCsv.TabIndex = 6;
             this.btn_exportCsv.Text = "Export Incidents List to csv file";
             this.btn_exportCsv.UseVisualStyleBackColor = false;
+            this.btn_exportCsv.Click += new System.EventHandler(this.btn_exportCsv_Click);
             // 
             // listView_incidents
             // 
             this.listView_incidents.FullRowSelect = true;
             this.listView_incidents.GridLines = true;
             this.listView_incidents.HideSelection = false;
-            this.listView_incidents.Location = new System.Drawing.Point(31, 99);
+            this.listView_incidents.Location = new System.Drawing.Point(17, 126);
             this.listView_incidents.MultiSelect = false;
             this.listView_incidents.Name = "listView_incidents";
-            this.listView_incidents.Size = new System.Drawing.Size(575, 370);
+            this.listView_incidents.Size = new System.Drawing.Size(575, 331);
             this.listView_incidents.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listView_incidents.TabIndex = 1;
             this.listView_incidents.UseCompatibleStateImageBehavior = false;
@@ -274,23 +363,13 @@
             this.lbl_Title_Incidentmanagement.Text = "Overview tickets";
             this.lbl_Title_Incidentmanagement.Click += new System.EventHandler(this.label1_Click);
             // 
-            // lbl_Incidentsmanagement_listviewTitle_solved
-            // 
-            this.lbl_Incidentsmanagement_listviewTitle_solved.AutoSize = true;
-            this.lbl_Incidentsmanagement_listviewTitle_solved.Location = new System.Drawing.Point(440, 116);
-            this.lbl_Incidentsmanagement_listviewTitle_solved.Name = "lbl_Incidentsmanagement_listviewTitle_solved";
-            this.lbl_Incidentsmanagement_listviewTitle_solved.Size = new System.Drawing.Size(85, 13);
-            this.lbl_Incidentsmanagement_listviewTitle_solved.TabIndex = 5;
-            this.lbl_Incidentsmanagement_listviewTitle_solved.Text = "Solved incidents";
-            this.lbl_Incidentsmanagement_listviewTitle_solved.Visible = false;
-            // 
             // listView_dashboard_SolvedTickets
             // 
             this.listView_dashboard_SolvedTickets.GridLines = true;
             this.listView_dashboard_SolvedTickets.HideSelection = false;
-            this.listView_dashboard_SolvedTickets.Location = new System.Drawing.Point(440, 137);
+            this.listView_dashboard_SolvedTickets.Location = new System.Drawing.Point(17, 126);
             this.listView_dashboard_SolvedTickets.Name = "listView_dashboard_SolvedTickets";
-            this.listView_dashboard_SolvedTickets.Size = new System.Drawing.Size(85, 189);
+            this.listView_dashboard_SolvedTickets.Size = new System.Drawing.Size(575, 331);
             this.listView_dashboard_SolvedTickets.TabIndex = 4;
             this.listView_dashboard_SolvedTickets.UseCompatibleStateImageBehavior = false;
             this.listView_dashboard_SolvedTickets.Visible = false;
@@ -325,6 +404,7 @@
             // 
             // panel_ticketOverview
             // 
+            this.panel_ticketOverview.Controls.Add(this.btn_Ticketstatistics_UpdateTicketStatus);
             this.panel_ticketOverview.Controls.Add(this.lbl_ticket_info_description);
             this.panel_ticketOverview.Controls.Add(this.lbl_ticket_info_whenTicketWasSbmt);
             this.panel_ticketOverview.Controls.Add(this.label25);
@@ -346,10 +426,20 @@
             this.panel_ticketOverview.Controls.Add(this.label19);
             this.panel_ticketOverview.Controls.Add(this.label21);
             this.panel_ticketOverview.Controls.Add(this.label20);
-            this.panel_ticketOverview.Location = new System.Drawing.Point(0, 27);
+            this.panel_ticketOverview.Location = new System.Drawing.Point(0, 0);
             this.panel_ticketOverview.Name = "panel_ticketOverview";
             this.panel_ticketOverview.Size = new System.Drawing.Size(638, 510);
             this.panel_ticketOverview.TabIndex = 8;
+            // 
+            // btn_Ticketstatistics_UpdateTicketStatus
+            // 
+            this.btn_Ticketstatistics_UpdateTicketStatus.Location = new System.Drawing.Point(357, 362);
+            this.btn_Ticketstatistics_UpdateTicketStatus.Name = "btn_Ticketstatistics_UpdateTicketStatus";
+            this.btn_Ticketstatistics_UpdateTicketStatus.Size = new System.Drawing.Size(235, 33);
+            this.btn_Ticketstatistics_UpdateTicketStatus.TabIndex = 43;
+            this.btn_Ticketstatistics_UpdateTicketStatus.Text = "Update Ticket Status";
+            this.btn_Ticketstatistics_UpdateTicketStatus.UseVisualStyleBackColor = true;
+            this.btn_Ticketstatistics_UpdateTicketStatus.Click += new System.EventHandler(this.btn_Ticketstatistics_UpdateTicketStatus_Click);
             // 
             // lbl_ticket_info_description
             // 
@@ -725,68 +815,6 @@
             this.Clock.Interval = 10000;
             this.Clock.Tick += new System.EventHandler(this.Clock_Tick);
             // 
-            // unresolved_ProgressBar
-            // 
-            this.unresolved_ProgressBar.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner;
-            this.unresolved_ProgressBar.AnimationSpeed = 500;
-            this.unresolved_ProgressBar.BackColor = System.Drawing.Color.Transparent;
-            this.unresolved_ProgressBar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.unresolved_ProgressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.unresolved_ProgressBar.InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.unresolved_ProgressBar.InnerMargin = 2;
-            this.unresolved_ProgressBar.InnerWidth = -1;
-            this.unresolved_ProgressBar.Location = new System.Drawing.Point(59, 229);
-            this.unresolved_ProgressBar.MarqueeAnimationSpeed = 2000;
-            this.unresolved_ProgressBar.Name = "unresolved_ProgressBar";
-            this.unresolved_ProgressBar.OuterColor = System.Drawing.Color.Gray;
-            this.unresolved_ProgressBar.OuterMargin = -25;
-            this.unresolved_ProgressBar.OuterWidth = 26;
-            this.unresolved_ProgressBar.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.unresolved_ProgressBar.ProgressWidth = 25;
-            this.unresolved_ProgressBar.SecondaryFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.unresolved_ProgressBar.Size = new System.Drawing.Size(194, 176);
-            this.unresolved_ProgressBar.StartAngle = 270;
-            this.unresolved_ProgressBar.SubscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.unresolved_ProgressBar.SubscriptMargin = new System.Windows.Forms.Padding(10, -35, 0, 0);
-            this.unresolved_ProgressBar.SubscriptText = "";
-            this.unresolved_ProgressBar.SuperscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.unresolved_ProgressBar.SuperscriptMargin = new System.Windows.Forms.Padding(10, 35, 0, 0);
-            this.unresolved_ProgressBar.SuperscriptText = "";
-            this.unresolved_ProgressBar.TabIndex = 11;
-            this.unresolved_ProgressBar.TextMargin = new System.Windows.Forms.Padding(8, 8, 0, 0);
-            this.unresolved_ProgressBar.Value = 68;
-            // 
-            // past_deadline_circularProgressBar
-            // 
-            this.past_deadline_circularProgressBar.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner;
-            this.past_deadline_circularProgressBar.AnimationSpeed = 500;
-            this.past_deadline_circularProgressBar.BackColor = System.Drawing.Color.Transparent;
-            this.past_deadline_circularProgressBar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.past_deadline_circularProgressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.past_deadline_circularProgressBar.InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.past_deadline_circularProgressBar.InnerMargin = 2;
-            this.past_deadline_circularProgressBar.InnerWidth = -1;
-            this.past_deadline_circularProgressBar.Location = new System.Drawing.Point(348, 230);
-            this.past_deadline_circularProgressBar.MarqueeAnimationSpeed = 2000;
-            this.past_deadline_circularProgressBar.Name = "past_deadline_circularProgressBar";
-            this.past_deadline_circularProgressBar.OuterColor = System.Drawing.Color.Gray;
-            this.past_deadline_circularProgressBar.OuterMargin = -25;
-            this.past_deadline_circularProgressBar.OuterWidth = 26;
-            this.past_deadline_circularProgressBar.ProgressColor = System.Drawing.Color.Red;
-            this.past_deadline_circularProgressBar.ProgressWidth = 25;
-            this.past_deadline_circularProgressBar.SecondaryFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.past_deadline_circularProgressBar.Size = new System.Drawing.Size(190, 165);
-            this.past_deadline_circularProgressBar.StartAngle = 270;
-            this.past_deadline_circularProgressBar.SubscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.past_deadline_circularProgressBar.SubscriptMargin = new System.Windows.Forms.Padding(10, -35, 0, 0);
-            this.past_deadline_circularProgressBar.SubscriptText = "";
-            this.past_deadline_circularProgressBar.SuperscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.past_deadline_circularProgressBar.SuperscriptMargin = new System.Windows.Forms.Padding(10, 35, 0, 0);
-            this.past_deadline_circularProgressBar.SuperscriptText = "";
-            this.past_deadline_circularProgressBar.TabIndex = 12;
-            this.past_deadline_circularProgressBar.TextMargin = new System.Windows.Forms.Padding(8, 8, 0, 0);
-            this.past_deadline_circularProgressBar.Value = 68;
-            // 
             // Gardern_Group_desk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -795,8 +823,9 @@
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.Dashboard_panel);
             this.Controls.Add(this.panel_incident_management);
-            this.Controls.Add(this.panel_ticketOverview);
             this.Controls.Add(this.create_ticket_Panel);
+            this.Controls.Add(this.panel_ticketOverview);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Gardern_Group_desk";
             this.Text = "Garden group desk";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Gardern_Group_desk_FormClosing);
@@ -832,7 +861,6 @@
         private System.Windows.Forms.Panel panel_incident_management;
         private System.Windows.Forms.ListView listView_incidents;
         private System.Windows.Forms.Label lbl_Title_Incidentmanagement;
-        private System.Windows.Forms.Label lbl_Incidentsmanagement_listviewTitle_solved;
         private System.Windows.Forms.ListView listView_dashboard_SolvedTickets;
         private System.Windows.Forms.Button go_create_incident_BTN;
         private System.Windows.Forms.Panel create_ticket_Panel;
@@ -883,5 +911,9 @@
         private System.Windows.Forms.Label lbl_ticket_info_description;
         private CircularProgressBar.CircularProgressBar past_deadline_circularProgressBar;
         private CircularProgressBar.CircularProgressBar unresolved_ProgressBar;
+        private System.Windows.Forms.Button btn_Incidentmanagement_ShowSolvedTickets;
+        private System.ComponentModel.BackgroundWorker backgroundWorker2;
+        private System.Windows.Forms.Button btn_incidentmangement_ShowAllTickers;
+        private System.Windows.Forms.Button btn_Ticketstatistics_UpdateTicketStatus;
     }
 }

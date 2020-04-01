@@ -8,6 +8,9 @@ using TGG_Service;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace TGG_Login
 {
@@ -113,10 +116,45 @@ namespace TGG_Login
                 listView_incidents.Items.Add(li);
             }
         }
-        private void txtBox_filterEmail_TextChanged(object sender, EventArgs e)
+
+        private void btn_exportCsv_Click(object sender, EventArgs e)
         {
+            string[] arr = null;
+            StringBuilder csvContent = new StringBuilder();
+            csvContent.AppendLine("Requested By, Subject, Description, Status, Priority, Request Date, Deadline, TypeOfIncident");
             
+            foreach (Ticket t in ticket_Service.GetAllUnresolvedTickets(ticket_Service.GetAllTickets()))
+            {
+                string RequestedBy =t.GetRequestedBy();
+                string Subject = (t.GetSubject());
+                string Description = (t.GetDescription());
+                string Status = (t.GetStatus().ToString());
+                string Priority = (t.GetPriority().ToString());
+                string RequestDate = (t.GetRequestDate().ToString("yyyy/MM/dd HH:mm:ss"));
+                string Deadline = (t.GetDeadline().ToString("yyyy/MM/dd HH:mm:ss"));
+                string TypeOfIncident = (t.GetTypeOfIncident());
+                arr = new string[] { RequestedBy, Subject, Description, Status, Priority, RequestDate, Deadline, TypeOfIncident };
+                csvContent.AppendLine(arr[0] + "," + arr[1] + "," + arr[2] + "," + arr[3] + "," + arr[4] + "," + arr[5] + "," + arr[6] + "," + arr[7]);
+            }
+
+            export_IncidentsList_ToCSV(arr, csvContent);
+            MessageBox.Show("csv file exported to location: `Documents > IncidentsList`");
         }
+        private void export_IncidentsList_ToCSV(string[] arr, StringBuilder csvContent)
+        {
+            string fileName = System.IO.Path.GetRandomFileName();
+            //saving the file in a folder in "Documents" with a random name
+            string documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string csvPath = documents + @"\IncidentsList";
+
+            if (!(Directory.Exists(csvPath)))
+            {
+                System.IO.Directory.CreateDirectory(csvPath);
+            }
+
+            csvPath += @"\Incidents_List_" + fileName + ".csv";
+            File.AppendAllText(csvPath, csvContent.ToString());
+        }        
 
         private void txtBox_filterEmail_TextChanged_1(object sender, EventArgs e)
         {
@@ -407,6 +445,57 @@ namespace TGG_Login
             lbl_ticket_info_whenTicketWasSbmt.Text = null;
             lbl_ticket_tyoe_of_incident.Text = null;
 
-        }   
+        }
+
+        private void btn_Incidentmanagement_ShowSolvedTickets_Click(object sender, EventArgs e)
+        {
+            listView_incidents.Hide();
+            listView_dashboard_SolvedTickets.Show();
+            btn_incidentmangement_ShowAllTickers.Show();
+            btn_Incidentmanagement_ShowSolvedTickets.Hide();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            listView_incidents.Show();
+            listView_dashboard_SolvedTickets.Hide();
+            btn_incidentmangement_ShowAllTickers.Hide();
+            btn_Incidentmanagement_ShowSolvedTickets.Show();
+        }
+
+        private void btn_Ticketstatistics_UpdateTicketStatus_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string updatedticketstatus = comboBox_change_ticket_status.SelectedItem.ToString();
+                string UserEmail = lbl_ticket_info_reportedBy.Text;
+
+                ticket_Service.UpdateTicketStatus(UserEmail, updatedticketstatus);
+
+                Notifications_Service notifications = new Notifications_Service();
+                notifications.CreateEmail(UserEmail, updatedticketstatus);
+
+                MessageBox.Show("Your ticket status has been changed!", "Succes!!",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                panel_ticketOverview.Hide();
+                panel_incident_management.Show();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Something went wrong with changing you ticket status. Make sure you have a stable internet connection and try again.", "ERROR",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
+
+        }
+
+
+        private void txtBox_filterEmail_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }

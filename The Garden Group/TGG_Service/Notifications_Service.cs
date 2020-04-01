@@ -13,28 +13,28 @@ namespace TGG_Service
 {
     public class Notifications_Service
     {
-        public void CreateEmail(string ToEmail, string FromEmail, string Subject, TGG_Model.Status status)
+        public void CreateEmail(string ToEmail, string status)
         {
             //create empty message
             string Message = "";
 
-            if (status == TGG_Model.Status.PastDeadline)
+            if (status == "PastDeadline")
             {
                 Message = "Dear" + ToEmail+ ", \n" +
-                    "Unfortunatly your ticket:'" + Subject +"' has expired passed it's deadline. Therefor it has received status:'" + status.ToString() + ". \n" +
+                    "Unfortunatly your ticket has expired passed it's deadline. Therefor it has received status:'" + status.ToString() + ". \n" +
                     "We try to solve you ticket as soon as possible. If your ticket isn't solved within 48 hours please contact the helpdesk."
                     ;
             }
-            else if (status == TGG_Model.Status.Pending)
+            else if (status == "Pending")
             {
                 Message = "Dear" + ToEmail + ", \n" +
-                    "Good news! We are currently working on your ticket: '" + Subject + "'. Your ticket status is currently: '" + status.ToString() + "'.";
+                    "Good news! We are currently working on your ticket. Your ticket status is currently: '" + status.ToString() + "'.";
                     ;
             }
-            else if (status == TGG_Model.Status.Solved)
+            else if (status == "Solved")
             {
                 Message = "Dear" + ToEmail + ", \n" +
-                    "Good news! Your ticket:'" + Subject + "' has status:'" + status.ToString() + "'. That means that your ticket should be solved! If your problem isn't fixed please contact the helpdesk.";
+                    "Good news! Your ticket has status:'" + status.ToString() + "'. That means that your ticket should be solved! If your problem isn't fixed please contact the helpdesk.";
             }
 
             if (Message != "")
@@ -61,7 +61,7 @@ namespace TGG_Service
                     myMail.ReplyToList.Add(replyto);
 
                     // set subject and encoding
-                    myMail.Subject = Subject;
+                    myMail.Subject = "NoDESK Ticket Status Change";
                     myMail.SubjectEncoding = System.Text.Encoding.UTF8;
 
                     // set body-message and encoding

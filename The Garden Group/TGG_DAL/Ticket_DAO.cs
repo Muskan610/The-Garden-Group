@@ -143,5 +143,17 @@ namespace TGG_DAL
             }
             return priority;
         }
+
+        public void UpdateTicketStatus(string Email, string status)
+        {
+            //select database and collection
+            var database = config.dbClient.GetDatabase("NoDesk");
+            var collection = database.GetCollection<BsonDocument>("Tickets");
+            //create filter
+            var filter = Builders<BsonDocument>.Filter.Eq("requestedBy", Email);
+            //update in database
+            var update = Builders<BsonDocument>.Update.Set("status", status.ToString());
+            collection.UpdateOne(filter, update);
+        }
     }
 }

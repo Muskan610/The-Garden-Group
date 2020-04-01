@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pnl_ResetPassword_Email = new System.Windows.Forms.Panel();
             this.btn_PassReset_Email_SendButton = new System.Windows.Forms.Button();
             this.tb_Passreset_Email_Input = new System.Windows.Forms.TextBox();
@@ -190,6 +191,7 @@
             this.Controls.Add(this.pnl_ResetPassword_Email);
             this.Controls.Add(this.pnl_ResetPassword_CodeInput);
             this.Controls.Add(this.pnl_ResetPassword_ChangePass);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Password Reset";
             this.Load += new System.EventHandler(this.Form1_Load);
