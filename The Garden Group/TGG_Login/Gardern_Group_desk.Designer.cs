@@ -30,8 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.Dashboard_panel = new System.Windows.Forms.Panel();
-            this.past_deadline_TXT = new System.Windows.Forms.Label();
-            this.unresolved_incidents_TXT = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -42,7 +40,9 @@
             this.dashboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.incidentManagementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userManagementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel_dashboardViewTicketList = new System.Windows.Forms.Panel();
+            this.panel_incident_management = new System.Windows.Forms.Panel();
+            this.btn_open_ticket = new System.Windows.Forms.Button();
+            this.btn_exportCsv = new System.Windows.Forms.Button();
             this.listView_incidents = new System.Windows.Forms.ListView();
             this.lbl_Title_Incidentmanagement = new System.Windows.Forms.Label();
             this.lbl_Incidentsmanagement_listviewTitle_solved = new System.Windows.Forms.Label();
@@ -50,6 +50,28 @@
             this.txtBox_filterEmail = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.go_create_incident_BTN = new System.Windows.Forms.Button();
+            this.panel_ticketOverview = new System.Windows.Forms.Panel();
+            this.lbl_ticket_info_description = new System.Windows.Forms.Label();
+            this.lbl_ticket_info_whenTicketWasSbmt = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.comboBox_change_ticket_status = new System.Windows.Forms.ComboBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.lbl_ticket_info_status = new System.Windows.Forms.Label();
+            this.lbl_ticket_info_deadline = new System.Windows.Forms.Label();
+            this.lbl_ticket_info_priority = new System.Windows.Forms.Label();
+            this.lbl_ticket_info_reportedBy = new System.Windows.Forms.Label();
+            this.lbl_ticket_tyoe_of_incident = new System.Windows.Forms.Label();
+            this.lbl_ticket_info_subject = new System.Windows.Forms.Label();
+            this.time_clock_display2_lbl = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
             this.create_ticket_Panel = new System.Windows.Forms.Panel();
             this.add_incident_type_TextBox = new System.Windows.Forms.TextBox();
             this.select_priority_ComboBox = new System.Windows.Forms.ComboBox();
@@ -70,17 +92,19 @@
             this.create_ticket_btn = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.Clock = new System.Windows.Forms.Timer(this.components);
-            this.btn_exportCsv = new System.Windows.Forms.Button();
+            this.unresolved_ProgressBar = new CircularProgressBar.CircularProgressBar();
+            this.past_deadline_circularProgressBar = new CircularProgressBar.CircularProgressBar();
             this.Dashboard_panel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.panel_dashboardViewTicketList.SuspendLayout();
+            this.panel_incident_management.SuspendLayout();
+            this.panel_ticketOverview.SuspendLayout();
             this.create_ticket_Panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // Dashboard_panel
             // 
-            this.Dashboard_panel.Controls.Add(this.past_deadline_TXT);
-            this.Dashboard_panel.Controls.Add(this.unresolved_incidents_TXT);
+            this.Dashboard_panel.Controls.Add(this.past_deadline_circularProgressBar);
+            this.Dashboard_panel.Controls.Add(this.unresolved_ProgressBar);
             this.Dashboard_panel.Controls.Add(this.label9);
             this.Dashboard_panel.Controls.Add(this.label8);
             this.Dashboard_panel.Controls.Add(this.label7);
@@ -91,24 +115,6 @@
             this.Dashboard_panel.Name = "Dashboard_panel";
             this.Dashboard_panel.Size = new System.Drawing.Size(638, 537);
             this.Dashboard_panel.TabIndex = 8;
-            // 
-            // past_deadline_TXT
-            // 
-            this.past_deadline_TXT.AutoSize = true;
-            this.past_deadline_TXT.Location = new System.Drawing.Point(415, 226);
-            this.past_deadline_TXT.Name = "past_deadline_TXT";
-            this.past_deadline_TXT.Size = new System.Drawing.Size(31, 13);
-            this.past_deadline_TXT.TabIndex = 10;
-            this.past_deadline_TXT.Text = "????";
-            // 
-            // unresolved_incidents_TXT
-            // 
-            this.unresolved_incidents_TXT.AutoSize = true;
-            this.unresolved_incidents_TXT.Location = new System.Drawing.Point(116, 226);
-            this.unresolved_incidents_TXT.Name = "unresolved_incidents_TXT";
-            this.unresolved_incidents_TXT.Size = new System.Drawing.Size(31, 13);
-            this.unresolved_incidents_TXT.TabIndex = 9;
-            this.unresolved_incidents_TXT.Text = "????";
             // 
             // label9
             // 
@@ -204,33 +210,58 @@
             this.userManagementToolStripMenuItem.Text = "User Management";
             this.userManagementToolStripMenuItem.Click += new System.EventHandler(this.userManagementToolStripMenuItem_Click);
             // 
-            // panel_dashboardViewTicketList
+            // panel_incident_management
             // 
-            this.panel_dashboardViewTicketList.Controls.Add(this.btn_exportCsv);
-            this.panel_dashboardViewTicketList.Controls.Add(this.listView_incidents);
-            this.panel_dashboardViewTicketList.Controls.Add(this.lbl_Title_Incidentmanagement);
-            this.panel_dashboardViewTicketList.Controls.Add(this.lbl_Incidentsmanagement_listviewTitle_solved);
-            this.panel_dashboardViewTicketList.Controls.Add(this.listView_dashboard_SolvedTickets);
-            this.panel_dashboardViewTicketList.Controls.Add(this.txtBox_filterEmail);
-            this.panel_dashboardViewTicketList.Controls.Add(this.label14);
-            this.panel_dashboardViewTicketList.Controls.Add(this.go_create_incident_BTN);
-            this.panel_dashboardViewTicketList.Location = new System.Drawing.Point(0, 0);
-            this.panel_dashboardViewTicketList.Name = "panel_dashboardViewTicketList";
-            this.panel_dashboardViewTicketList.Size = new System.Drawing.Size(638, 534);
-            this.panel_dashboardViewTicketList.TabIndex = 11;
+            this.panel_incident_management.Controls.Add(this.btn_open_ticket);
+            this.panel_incident_management.Controls.Add(this.btn_exportCsv);
+            this.panel_incident_management.Controls.Add(this.listView_incidents);
+            this.panel_incident_management.Controls.Add(this.lbl_Title_Incidentmanagement);
+            this.panel_incident_management.Controls.Add(this.lbl_Incidentsmanagement_listviewTitle_solved);
+            this.panel_incident_management.Controls.Add(this.listView_dashboard_SolvedTickets);
+            this.panel_incident_management.Controls.Add(this.txtBox_filterEmail);
+            this.panel_incident_management.Controls.Add(this.label14);
+            this.panel_incident_management.Controls.Add(this.go_create_incident_BTN);
+            this.panel_incident_management.Location = new System.Drawing.Point(0, 0);
+            this.panel_incident_management.Name = "panel_incident_management";
+            this.panel_incident_management.Size = new System.Drawing.Size(638, 534);
+            this.panel_incident_management.TabIndex = 11;
+            // 
+            // btn_open_ticket
+            // 
+            this.btn_open_ticket.Location = new System.Drawing.Point(86, 484);
+            this.btn_open_ticket.Name = "btn_open_ticket";
+            this.btn_open_ticket.Size = new System.Drawing.Size(137, 40);
+            this.btn_open_ticket.TabIndex = 7;
+            this.btn_open_ticket.Text = "Open incident ticket";
+            this.btn_open_ticket.UseVisualStyleBackColor = true;
+            this.btn_open_ticket.Click += new System.EventHandler(this.Btn_open_ticket_Click_1);
+            // 
+            // btn_exportCsv
+            // 
+            this.btn_exportCsv.BackColor = System.Drawing.Color.LightGreen;
+            this.btn_exportCsv.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_exportCsv.Location = new System.Drawing.Point(429, 484);
+            this.btn_exportCsv.Name = "btn_exportCsv";
+            this.btn_exportCsv.Size = new System.Drawing.Size(177, 42);
+            this.btn_exportCsv.TabIndex = 6;
+            this.btn_exportCsv.Text = "Export Incidents List to csv file";
+            this.btn_exportCsv.UseVisualStyleBackColor = false;
             // 
             // listView_incidents
             // 
+            this.listView_incidents.FullRowSelect = true;
             this.listView_incidents.GridLines = true;
             this.listView_incidents.HideSelection = false;
             this.listView_incidents.Location = new System.Drawing.Point(31, 99);
+            this.listView_incidents.MultiSelect = false;
             this.listView_incidents.Name = "listView_incidents";
             this.listView_incidents.Size = new System.Drawing.Size(575, 370);
             this.listView_incidents.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listView_incidents.TabIndex = 1;
             this.listView_incidents.UseCompatibleStateImageBehavior = false;
             this.listView_incidents.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView_incidents_ColumnClick);
-            this.listView_incidents.SelectedIndexChanged += new System.EventHandler(this.listView_dashboard_SelectedIndexChanged);
+            this.listView_incidents.SelectedIndexChanged += new System.EventHandler(this.listView_incidents_Click);
+            this.listView_incidents.Click += new System.EventHandler(this.ListView_incidents_Click);
             // 
             // lbl_Title_Incidentmanagement
             // 
@@ -291,6 +322,227 @@
             this.go_create_incident_BTN.Text = "CREATE INCIDENT";
             this.go_create_incident_BTN.UseVisualStyleBackColor = true;
             this.go_create_incident_BTN.Click += new System.EventHandler(this.Go_create_incident_BTN_Click);
+            // 
+            // panel_ticketOverview
+            // 
+            this.panel_ticketOverview.Controls.Add(this.lbl_ticket_info_description);
+            this.panel_ticketOverview.Controls.Add(this.lbl_ticket_info_whenTicketWasSbmt);
+            this.panel_ticketOverview.Controls.Add(this.label25);
+            this.panel_ticketOverview.Controls.Add(this.comboBox_change_ticket_status);
+            this.panel_ticketOverview.Controls.Add(this.label24);
+            this.panel_ticketOverview.Controls.Add(this.lbl_ticket_info_status);
+            this.panel_ticketOverview.Controls.Add(this.lbl_ticket_info_deadline);
+            this.panel_ticketOverview.Controls.Add(this.lbl_ticket_info_priority);
+            this.panel_ticketOverview.Controls.Add(this.lbl_ticket_info_reportedBy);
+            this.panel_ticketOverview.Controls.Add(this.lbl_ticket_tyoe_of_incident);
+            this.panel_ticketOverview.Controls.Add(this.lbl_ticket_info_subject);
+            this.panel_ticketOverview.Controls.Add(this.time_clock_display2_lbl);
+            this.panel_ticketOverview.Controls.Add(this.label23);
+            this.panel_ticketOverview.Controls.Add(this.label16);
+            this.panel_ticketOverview.Controls.Add(this.label17);
+            this.panel_ticketOverview.Controls.Add(this.label15);
+            this.panel_ticketOverview.Controls.Add(this.label18);
+            this.panel_ticketOverview.Controls.Add(this.label22);
+            this.panel_ticketOverview.Controls.Add(this.label19);
+            this.panel_ticketOverview.Controls.Add(this.label21);
+            this.panel_ticketOverview.Controls.Add(this.label20);
+            this.panel_ticketOverview.Location = new System.Drawing.Point(0, 27);
+            this.panel_ticketOverview.Name = "panel_ticketOverview";
+            this.panel_ticketOverview.Size = new System.Drawing.Size(638, 510);
+            this.panel_ticketOverview.TabIndex = 8;
+            // 
+            // lbl_ticket_info_description
+            // 
+            this.lbl_ticket_info_description.AutoSize = true;
+            this.lbl_ticket_info_description.Location = new System.Drawing.Point(116, 332);
+            this.lbl_ticket_info_description.Name = "lbl_ticket_info_description";
+            this.lbl_ticket_info_description.Size = new System.Drawing.Size(31, 13);
+            this.lbl_ticket_info_description.TabIndex = 42;
+            this.lbl_ticket_info_description.Text = "????";
+            // 
+            // lbl_ticket_info_whenTicketWasSbmt
+            // 
+            this.lbl_ticket_info_whenTicketWasSbmt.AutoSize = true;
+            this.lbl_ticket_info_whenTicketWasSbmt.Location = new System.Drawing.Point(173, 73);
+            this.lbl_ticket_info_whenTicketWasSbmt.Name = "lbl_ticket_info_whenTicketWasSbmt";
+            this.lbl_ticket_info_whenTicketWasSbmt.Size = new System.Drawing.Size(31, 13);
+            this.lbl_ticket_info_whenTicketWasSbmt.TabIndex = 41;
+            this.lbl_ticket_info_whenTicketWasSbmt.Text = "????";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(382, 72);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(32, 13);
+            this.label25.TabIndex = 40;
+            this.label25.Text = "Now:";
+            // 
+            // comboBox_change_ticket_status
+            // 
+            this.comboBox_change_ticket_status.FormattingEnabled = true;
+            this.comboBox_change_ticket_status.Items.AddRange(new object[] {
+            "Pending",
+            "Solved"});
+            this.comboBox_change_ticket_status.Location = new System.Drawing.Point(357, 269);
+            this.comboBox_change_ticket_status.Name = "comboBox_change_ticket_status";
+            this.comboBox_change_ticket_status.Size = new System.Drawing.Size(235, 21);
+            this.comboBox_change_ticket_status.TabIndex = 39;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(437, 241);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(78, 13);
+            this.label24.TabIndex = 38;
+            this.label24.Text = "Change status:";
+            // 
+            // lbl_ticket_info_status
+            // 
+            this.lbl_ticket_info_status.AutoSize = true;
+            this.lbl_ticket_info_status.Location = new System.Drawing.Point(173, 277);
+            this.lbl_ticket_info_status.Name = "lbl_ticket_info_status";
+            this.lbl_ticket_info_status.Size = new System.Drawing.Size(31, 13);
+            this.lbl_ticket_info_status.TabIndex = 37;
+            this.lbl_ticket_info_status.Text = "????";
+            // 
+            // lbl_ticket_info_deadline
+            // 
+            this.lbl_ticket_info_deadline.AutoSize = true;
+            this.lbl_ticket_info_deadline.Location = new System.Drawing.Point(173, 248);
+            this.lbl_ticket_info_deadline.Name = "lbl_ticket_info_deadline";
+            this.lbl_ticket_info_deadline.Size = new System.Drawing.Size(31, 13);
+            this.lbl_ticket_info_deadline.TabIndex = 36;
+            this.lbl_ticket_info_deadline.Text = "????";
+            // 
+            // lbl_ticket_info_priority
+            // 
+            this.lbl_ticket_info_priority.AutoSize = true;
+            this.lbl_ticket_info_priority.Location = new System.Drawing.Point(173, 212);
+            this.lbl_ticket_info_priority.Name = "lbl_ticket_info_priority";
+            this.lbl_ticket_info_priority.Size = new System.Drawing.Size(31, 13);
+            this.lbl_ticket_info_priority.TabIndex = 35;
+            this.lbl_ticket_info_priority.Text = "????";
+            // 
+            // lbl_ticket_info_reportedBy
+            // 
+            this.lbl_ticket_info_reportedBy.AutoSize = true;
+            this.lbl_ticket_info_reportedBy.Location = new System.Drawing.Point(173, 114);
+            this.lbl_ticket_info_reportedBy.Name = "lbl_ticket_info_reportedBy";
+            this.lbl_ticket_info_reportedBy.Size = new System.Drawing.Size(31, 13);
+            this.lbl_ticket_info_reportedBy.TabIndex = 34;
+            this.lbl_ticket_info_reportedBy.Text = "????";
+            // 
+            // lbl_ticket_tyoe_of_incident
+            // 
+            this.lbl_ticket_tyoe_of_incident.AutoSize = true;
+            this.lbl_ticket_tyoe_of_incident.Location = new System.Drawing.Point(173, 186);
+            this.lbl_ticket_tyoe_of_incident.Name = "lbl_ticket_tyoe_of_incident";
+            this.lbl_ticket_tyoe_of_incident.Size = new System.Drawing.Size(31, 13);
+            this.lbl_ticket_tyoe_of_incident.TabIndex = 33;
+            this.lbl_ticket_tyoe_of_incident.Text = "????";
+            // 
+            // lbl_ticket_info_subject
+            // 
+            this.lbl_ticket_info_subject.AutoSize = true;
+            this.lbl_ticket_info_subject.Location = new System.Drawing.Point(173, 149);
+            this.lbl_ticket_info_subject.Name = "lbl_ticket_info_subject";
+            this.lbl_ticket_info_subject.Size = new System.Drawing.Size(31, 13);
+            this.lbl_ticket_info_subject.TabIndex = 32;
+            this.lbl_ticket_info_subject.Text = "????";
+            // 
+            // time_clock_display2_lbl
+            // 
+            this.time_clock_display2_lbl.AutoSize = true;
+            this.time_clock_display2_lbl.Location = new System.Drawing.Point(426, 72);
+            this.time_clock_display2_lbl.Name = "time_clock_display2_lbl";
+            this.time_clock_display2_lbl.Size = new System.Drawing.Size(31, 13);
+            this.time_clock_display2_lbl.TabIndex = 31;
+            this.time_clock_display2_lbl.Text = "????";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(116, 277);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(40, 13);
+            this.label23.TabIndex = 30;
+            this.label23.Text = "Status:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(19, 73);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(128, 13);
+            this.label16.TabIndex = 29;
+            this.label16.Text = "Time incident is submited:";
+            this.label16.Click += new System.EventHandler(this.Label16_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(65, 186);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(86, 13);
+            this.label17.TabIndex = 28;
+            this.label17.Text = "Type of incident:";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(224, 23);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(134, 20);
+            this.label15.TabIndex = 9;
+            this.label15.Text = "Ticket statistics";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(116, 212);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(41, 13);
+            this.label18.TabIndex = 27;
+            this.label18.Text = "Priority:";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(105, 149);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(46, 13);
+            this.label22.TabIndex = 23;
+            this.label22.Text = "Subject:";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(108, 248);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(49, 13);
+            this.label19.TabIndex = 26;
+            this.label19.Text = "Deadline";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(147, 306);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(63, 13);
+            this.label21.TabIndex = 24;
+            this.label21.Text = "Description:";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(79, 114);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(68, 13);
+            this.label20.TabIndex = 25;
+            this.label20.Text = "Reported by:";
             // 
             // create_ticket_Panel
             // 
@@ -473,16 +725,67 @@
             this.Clock.Interval = 10000;
             this.Clock.Tick += new System.EventHandler(this.Clock_Tick);
             // 
-            // btn_exportCsv
+            // unresolved_ProgressBar
             // 
-            this.btn_exportCsv.BackColor = System.Drawing.Color.LightGreen;
-            this.btn_exportCsv.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_exportCsv.Location = new System.Drawing.Point(429, 484);
-            this.btn_exportCsv.Name = "btn_exportCsv";
-            this.btn_exportCsv.Size = new System.Drawing.Size(177, 42);
-            this.btn_exportCsv.TabIndex = 6;
-            this.btn_exportCsv.Text = "Export Incidents List to csv file";
-            this.btn_exportCsv.UseVisualStyleBackColor = false;
+            this.unresolved_ProgressBar.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner;
+            this.unresolved_ProgressBar.AnimationSpeed = 500;
+            this.unresolved_ProgressBar.BackColor = System.Drawing.Color.Transparent;
+            this.unresolved_ProgressBar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.unresolved_ProgressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.unresolved_ProgressBar.InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.unresolved_ProgressBar.InnerMargin = 2;
+            this.unresolved_ProgressBar.InnerWidth = -1;
+            this.unresolved_ProgressBar.Location = new System.Drawing.Point(59, 229);
+            this.unresolved_ProgressBar.MarqueeAnimationSpeed = 2000;
+            this.unresolved_ProgressBar.Name = "unresolved_ProgressBar";
+            this.unresolved_ProgressBar.OuterColor = System.Drawing.Color.Gray;
+            this.unresolved_ProgressBar.OuterMargin = -25;
+            this.unresolved_ProgressBar.OuterWidth = 26;
+            this.unresolved_ProgressBar.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.unresolved_ProgressBar.ProgressWidth = 25;
+            this.unresolved_ProgressBar.SecondaryFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.unresolved_ProgressBar.Size = new System.Drawing.Size(194, 176);
+            this.unresolved_ProgressBar.StartAngle = 270;
+            this.unresolved_ProgressBar.SubscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.unresolved_ProgressBar.SubscriptMargin = new System.Windows.Forms.Padding(10, -35, 0, 0);
+            this.unresolved_ProgressBar.SubscriptText = "";
+            this.unresolved_ProgressBar.SuperscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.unresolved_ProgressBar.SuperscriptMargin = new System.Windows.Forms.Padding(10, 35, 0, 0);
+            this.unresolved_ProgressBar.SuperscriptText = "";
+            this.unresolved_ProgressBar.TabIndex = 11;
+            this.unresolved_ProgressBar.TextMargin = new System.Windows.Forms.Padding(8, 8, 0, 0);
+            this.unresolved_ProgressBar.Value = 68;
+            // 
+            // past_deadline_circularProgressBar
+            // 
+            this.past_deadline_circularProgressBar.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner;
+            this.past_deadline_circularProgressBar.AnimationSpeed = 500;
+            this.past_deadline_circularProgressBar.BackColor = System.Drawing.Color.Transparent;
+            this.past_deadline_circularProgressBar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.past_deadline_circularProgressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.past_deadline_circularProgressBar.InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.past_deadline_circularProgressBar.InnerMargin = 2;
+            this.past_deadline_circularProgressBar.InnerWidth = -1;
+            this.past_deadline_circularProgressBar.Location = new System.Drawing.Point(348, 230);
+            this.past_deadline_circularProgressBar.MarqueeAnimationSpeed = 2000;
+            this.past_deadline_circularProgressBar.Name = "past_deadline_circularProgressBar";
+            this.past_deadline_circularProgressBar.OuterColor = System.Drawing.Color.Gray;
+            this.past_deadline_circularProgressBar.OuterMargin = -25;
+            this.past_deadline_circularProgressBar.OuterWidth = 26;
+            this.past_deadline_circularProgressBar.ProgressColor = System.Drawing.Color.Red;
+            this.past_deadline_circularProgressBar.ProgressWidth = 25;
+            this.past_deadline_circularProgressBar.SecondaryFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.past_deadline_circularProgressBar.Size = new System.Drawing.Size(190, 165);
+            this.past_deadline_circularProgressBar.StartAngle = 270;
+            this.past_deadline_circularProgressBar.SubscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.past_deadline_circularProgressBar.SubscriptMargin = new System.Windows.Forms.Padding(10, -35, 0, 0);
+            this.past_deadline_circularProgressBar.SubscriptText = "";
+            this.past_deadline_circularProgressBar.SuperscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.past_deadline_circularProgressBar.SuperscriptMargin = new System.Windows.Forms.Padding(10, 35, 0, 0);
+            this.past_deadline_circularProgressBar.SuperscriptText = "";
+            this.past_deadline_circularProgressBar.TabIndex = 12;
+            this.past_deadline_circularProgressBar.TextMargin = new System.Windows.Forms.Padding(8, 8, 0, 0);
+            this.past_deadline_circularProgressBar.Value = 68;
             // 
             // Gardern_Group_desk
             // 
@@ -491,17 +794,21 @@
             this.ClientSize = new System.Drawing.Size(638, 540);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.Dashboard_panel);
-            this.Controls.Add(this.panel_dashboardViewTicketList);
+            this.Controls.Add(this.panel_incident_management);
+            this.Controls.Add(this.panel_ticketOverview);
             this.Controls.Add(this.create_ticket_Panel);
             this.Name = "Gardern_Group_desk";
             this.Text = "Garden group desk";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Gardern_Group_desk_FormClosing);
             this.Load += new System.EventHandler(this.Gardern_Group_desk_Load);
             this.Dashboard_panel.ResumeLayout(false);
             this.Dashboard_panel.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.panel_dashboardViewTicketList.ResumeLayout(false);
-            this.panel_dashboardViewTicketList.PerformLayout();
+            this.panel_incident_management.ResumeLayout(false);
+            this.panel_incident_management.PerformLayout();
+            this.panel_ticketOverview.ResumeLayout(false);
+            this.panel_ticketOverview.PerformLayout();
             this.create_ticket_Panel.ResumeLayout(false);
             this.create_ticket_Panel.PerformLayout();
             this.ResumeLayout(false);
@@ -512,8 +819,6 @@
         #endregion
 
         private System.Windows.Forms.Panel Dashboard_panel;
-        private System.Windows.Forms.Label past_deadline_TXT;
-        private System.Windows.Forms.Label unresolved_incidents_TXT;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
@@ -524,7 +829,7 @@
         private System.Windows.Forms.ToolStripMenuItem dashboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem incidentManagementToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem userManagementToolStripMenuItem;
-        private System.Windows.Forms.Panel panel_dashboardViewTicketList;
+        private System.Windows.Forms.Panel panel_incident_management;
         private System.Windows.Forms.ListView listView_incidents;
         private System.Windows.Forms.Label lbl_Title_Incidentmanagement;
         private System.Windows.Forms.Label lbl_Incidentsmanagement_listviewTitle_solved;
@@ -553,5 +858,30 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtBox_filterEmail;
         private System.Windows.Forms.Button btn_exportCsv;
+        private System.Windows.Forms.Button btn_open_ticket;
+        private System.Windows.Forms.Panel panel_ticketOverview;
+        private System.Windows.Forms.ComboBox comboBox_change_ticket_status;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label lbl_ticket_info_status;
+        private System.Windows.Forms.Label lbl_ticket_info_deadline;
+        private System.Windows.Forms.Label lbl_ticket_info_priority;
+        private System.Windows.Forms.Label lbl_ticket_info_reportedBy;
+        private System.Windows.Forms.Label lbl_ticket_tyoe_of_incident;
+        private System.Windows.Forms.Label lbl_ticket_info_subject;
+        private System.Windows.Forms.Label time_clock_display2_lbl;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label lbl_ticket_info_whenTicketWasSbmt;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label lbl_ticket_info_description;
+        private CircularProgressBar.CircularProgressBar past_deadline_circularProgressBar;
+        private CircularProgressBar.CircularProgressBar unresolved_ProgressBar;
     }
 }

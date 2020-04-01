@@ -7,6 +7,7 @@ using TGG_Model;
 using TGG_Service;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace TGG_Login
 {
@@ -26,6 +27,7 @@ namespace TGG_Login
             lvwColumnSorter = new ListViewColumnSorter();
             this.listView_incidents.ListViewItemSorter = lvwColumnSorter;
 
+            btn_open_ticket.Enabled = false;
             //calls these methods to show overview of all incidents
             DisplayUnresolved();
             DisplayPastDeadline();           
@@ -36,7 +38,11 @@ namespace TGG_Login
             string count = ticket_Service.UnresolvedCount(ticket_Service.GetAllTickets()).ToString();
             string count2 = ticket_Service.IncidentCount(ticket_Service.GetAllTickets()).ToString();
 
-            unresolved_incidents_TXT.Text = count + "/" + count2;
+            //sets progress bar min, max and current value of unresolved incidents
+            unresolved_ProgressBar.Minimum = 0;
+            unresolved_ProgressBar.Value =ticket_Service.UnresolvedCount(ticket_Service.GetAllTickets());
+            unresolved_ProgressBar.Maximum = ticket_Service.IncidentCount(ticket_Service.GetAllTickets());
+            unresolved_ProgressBar.Text = ticket_Service.UnresolvedCount(ticket_Service.GetAllTickets()).ToString() + "/" + ticket_Service.IncidentCount(ticket_Service.GetAllTickets());
         }
         //shows number if tickets that are past deadline and unresolved
         private void DisplayPastDeadline()
@@ -45,14 +51,18 @@ namespace TGG_Login
             string count1 = ticket_Service.PastDeadlineCount(ticket_Service.GetAllTickets()).ToString();
             string count2 = ticket_Service.IncidentCount(ticket_Service.GetAllTickets()).ToString();
 
-            past_deadline_TXT.Text = count1 + "/" + count2;
+            past_deadline_circularProgressBar.Minimum = 0;
+            past_deadline_circularProgressBar.Value = ticket_Service.PastDeadlineCount(ticket_Service.GetAllTickets());
+            past_deadline_circularProgressBar.Maximum = ticket_Service.IncidentCount(ticket_Service.GetAllTickets());
+            past_deadline_circularProgressBar.Text = ticket_Service.PastDeadlineCount(ticket_Service.GetAllTickets()).ToString()+"/"+ticket_Service.IncidentCount(ticket_Service.GetAllTickets());
+            
         }
         //shows list of all incidents
         private void Show_list_btn_Click(object sender, EventArgs e)
         {
             Dashboard_panel.Hide();
             create_ticket_Panel.Hide();
-            panel_dashboardViewTicketList.Show();
+            panel_incident_management.Show();
 
             PopulateDashboardIncidentList();
             PopulateDashboardIncidentList_Solved();
@@ -70,13 +80,15 @@ namespace TGG_Login
                 List<string> columns = new List<string>();
                 columns.Add("Requested By");
                 columns.Add("Subject");
+                columns.Add("Description");
                 columns.Add("Status");
                 columns.Add("Priority");
                 columns.Add("Request Date");
                 columns.Add("Deadline");
+                columns.Add("Incident type");
 
-                // Create some column headers for the data. 
-                foreach (string col in columns)
+            // Create some column headers for the data. 
+            foreach (string col in columns)
                 {
                     columnheader = new ColumnHeader();
                     columnheader.Text = col;
@@ -89,12 +101,12 @@ namespace TGG_Login
             {
                 ListViewItem li = new ListViewItem(t.GetRequestedBy());                         
                 li.SubItems.Add(t.GetSubject());
-                //li.SubItems.Add(t.GetDescription());
+                li.SubItems.Add(t.GetDescription());
                 li.SubItems.Add(t.GetStatus().ToString());
                 li.SubItems.Add(t.GetPriority().ToString());
                 li.SubItems.Add(t.GetRequestDate().ToString("yyyy/MM/dd HH:mm:ss"));
                 li.SubItems.Add(t.GetDeadline().ToString("yyyy/MM/dd HH:mm:ss"));
-                //li.SubItems.Add(t.GetType().ToString());
+                li.SubItems.Add(t.GetTypeOfIncident());
 
                 li.Tag=t;
 
@@ -150,7 +162,7 @@ namespace TGG_Login
                 {
                     ListViewItem li = new ListViewItem(t.GetRequestedBy());
                     li.SubItems.Add(t.GetSubject());
-                    //li.SubItems.Add(t.GetDescription());
+                    li.SubItems.Add(t.GetDescription());
                     li.SubItems.Add(t.GetStatus().ToString());
                     li.SubItems.Add(t.GetPriority().ToString());
                     li.SubItems.Add(t.GetRequestDate().ToString("yyyy/MM/dd HH:mm:ss"));
@@ -188,7 +200,7 @@ namespace TGG_Login
                 li.SubItems.Add(t.GetDescription());
                 li.SubItems.Add(t.GetStatus().ToString());
                 li.SubItems.Add(t.GetPriority().ToString());
-                li.SubItems.Add(t.GetType().ToString());
+                li.SubItems.Add(t.GetTypeOfIncident());
 
 
                 li.Tag = t;
@@ -199,84 +211,106 @@ namespace TGG_Login
 
         private void dashboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            dashboardToolStripMenuItem.BackColor= SystemColors.ActiveCaption;
-            incidentManagementToolStripMenuItem.BackColor = SystemColors.GradientInactiveCaption;
-            userManagementToolStripMenuItem.BackColor = SystemColors.GradientInactiveCaption;
-
-
             //if dasboard menu item is clicked display dashboard panel and hide the rest
             ShowPanel("dashboard");
-            //panel_dashboardViewTicketList.Hide();
         }
 
         private void incidentManagementToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            incidentManagementToolStripMenuItem.BackColor = SystemColors.ActiveCaption;
-            dashboardToolStripMenuItem.BackColor = SystemColors.GradientInactiveCaption;
-            userManagementToolStripMenuItem.BackColor = SystemColors.GradientInactiveCaption;
-
             ShowPanel("incident_menu");
-            Dashboard_panel.Hide();
-            create_ticket_Panel.Hide();
-            panel_dashboardViewTicketList.Show();
-
-            PopulateDashboardIncidentList();
-            //PopulateDashboardIncidentList_Solved();
         }
-        // this method shows and hides 
+        // this method shows and hides panels
         private void ShowPanel(string panelName)
         {
            if (panelName=="dashboard")
             {
-               Dashboard_panel.Show();
+                dashboardToolStripMenuItem.BackColor = SystemColors.ActiveCaption;
+                incidentManagementToolStripMenuItem.BackColor = SystemColors.GradientInactiveCaption;
+                userManagementToolStripMenuItem.BackColor = SystemColors.GradientInactiveCaption;
+
+                btn_open_ticket.Enabled = false;
+                ClearTicketInfo();
+                panel_ticketOverview.Hide();
+                create_ticket_Panel.Hide();
+                panel_incident_management.Hide();
+                Dashboard_panel.Show();
+            }
+            else if(panelName == "incident_menu")
+            {
+                incidentManagementToolStripMenuItem.BackColor = SystemColors.ActiveCaption;
+                dashboardToolStripMenuItem.BackColor = SystemColors.GradientInactiveCaption;
+                userManagementToolStripMenuItem.BackColor = SystemColors.GradientInactiveCaption;
+
+                btn_open_ticket.Enabled = false;
+                ClearTicketInfo();
+                panel_ticketOverview.Hide();
+                Dashboard_panel.Hide();
+                create_ticket_Panel.Hide();
+                panel_incident_management.Show();
+
+                PopulateDashboardIncidentList();
             }
         }
         //useless buttons we accidently pressed but no code belongs to.
         private void Dash_back_btn_Click(object sender, EventArgs e) { }
         private void label1_Click(object sender, EventArgs e) { }
-        private void listView_dashboard_SelectedIndexChanged(object sender, EventArgs e) { }
-
+        private void listView_dashboard_SelectedIndexChanged(object sender, EventArgs e)
+        {
+          
+        }
+        // displays date and time for every tick of the clock 
         private void Clock_Tick(object sender, EventArgs e)
         {
             lbl_Clock_create_ticket.Text = DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss");
+            time_clock_display2_lbl.Text= DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss");
         }
-
+        // starts the clock and sets it's ticker to every second
         private void Gardern_Group_desk_Load(object sender, EventArgs e)
         {
 
             Clock.Interval = 1000;
             Clock.Start();
+            
         }
-       
+       //calls method from services layer and provides it with the information needed to create a ticket
         private void Create_ticket_btn_Click(object sender, EventArgs e)
         {
-            PopulateDashboardIncidentList();
+           
             create_ticket_Panel.Hide();
-            panel_dashboardViewTicketList.Show();
+            panel_incident_management.Show();
 
-            ticket_Service.WriteTicket_service(type_name_textBox.Text, ticket_deadlineTimePicker.Value, DateTime.Now, ticket_subject_textBox.Text, ticket_description_TextBox.Text, Status.Pending,select_priority_ComboBox.SelectedItem.ToString(),add_incident_type_TextBox.Text);
-
-            DisplayUnresolved();
-            DisplayPastDeadline();
-        }
-
-        private void Btn_cancel_of_create_ticket_Click(object sender, EventArgs e)
-        {
-            PopulateDashboardIncidentList();
-            create_ticket_Panel.Hide();
-            panel_dashboardViewTicketList.Show();
+            ticket_Service.WriteTicket_service(type_name_textBox.Text, ticket_deadlineTimePicker.Value, DateTime.Now, ticket_subject_textBox.Text, ticket_description_TextBox.Text, Status.Pending,select_priority_ComboBox.Text,add_incident_type_TextBox.Text);
 
             type_name_textBox.Clear();
             ticket_deadlineTimePicker.Value = DateTime.Now;
             ticket_subject_textBox.Clear();
             ticket_description_TextBox.Clear();
             add_incident_type_TextBox.Clear();
+
+            DisplayUnresolved();
+            DisplayPastDeadline();
+            PopulateDashboardIncidentList();
+        }
+        //return user to incident managemnt page and cancels creation of ticket
+        private void Btn_cancel_of_create_ticket_Click(object sender, EventArgs e)
+        {
+            
+            create_ticket_Panel.Hide();
+            panel_incident_management.Show();
+
+            type_name_textBox.Clear();
+            ticket_deadlineTimePicker.Value = DateTime.Now;
+            ticket_subject_textBox.Clear();
+            ticket_description_TextBox.Clear();
+            add_incident_type_TextBox.Clear();
+
+            PopulateDashboardIncidentList();
         }
 
         private void Go_create_incident_BTN_Click(object sender, EventArgs e)
         {
             Dashboard_panel.Hide();
-            panel_dashboardViewTicketList.Hide();
+            panel_incident_management.Hide();
             create_ticket_Panel.Show();
         }
         
@@ -312,12 +346,67 @@ namespace TGG_Login
         {
 
         }
-
         private void userManagementToolStripMenuItem_Click(object sender, EventArgs e)
         {
             incidentManagementToolStripMenuItem.BackColor = SystemColors.GradientInactiveCaption;
             dashboardToolStripMenuItem.BackColor = SystemColors.GradientInactiveCaption;
             userManagementToolStripMenuItem.BackColor = SystemColors.ActiveCaption;
         }
+
+        private void Gardern_Group_desk_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Clock.Stop();
+            
+        }
+        // opens ticket info page
+        private void Btn_open_ticket_Click_1(object sender, EventArgs e)
+        {
+            
+            panel_incident_management.Hide();
+            Dashboard_panel.Hide();
+            panel_ticketOverview.Show();
+
+            listView_incidents.Refresh();
+        }
+
+        private void ListView_incidents_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label16_Click(object sender, EventArgs e)
+        {
+
+        }
+        //passes all ticket values to ticket info page
+        private void listView_incidents_Click(object sender, EventArgs e)
+        {
+            btn_open_ticket.Enabled = true;
+
+            ClearTicketInfo();
+
+            lbl_ticket_info_reportedBy.Text = listView_incidents.SelectedItems[0].SubItems[0].Text;
+            lbl_ticket_info_subject.Text= listView_incidents.SelectedItems[0].SubItems[1].Text;
+            lbl_ticket_info_description.Text=listView_incidents.SelectedItems[0].SubItems[2].Text;
+            lbl_ticket_info_status.Text=listView_incidents.SelectedItems[0].SubItems[3].Text;
+            lbl_ticket_info_priority.Text=listView_incidents.SelectedItems[0].SubItems[4].Text;
+            lbl_ticket_info_deadline.Text= listView_incidents.SelectedItems[0].SubItems[6].Text;
+            lbl_ticket_info_whenTicketWasSbmt.Text=listView_incidents.SelectedItems[0].SubItems[5].Text;
+            lbl_ticket_tyoe_of_incident.Text= listView_incidents.SelectedItems[0].SubItems[7].Text;
+
+        }
+        //clears all info of ticket
+        private void ClearTicketInfo()
+        {
+            lbl_ticket_info_reportedBy.Text = null;
+            lbl_ticket_info_subject.Text = null;
+            lbl_ticket_info_description.Text = null;
+            lbl_ticket_info_status.Text = null;
+            lbl_ticket_info_priority.Text = null;
+            lbl_ticket_info_deadline.Text = null;
+            lbl_ticket_info_whenTicketWasSbmt.Text = null;
+            lbl_ticket_tyoe_of_incident.Text = null;
+
+        }   
     }
 }

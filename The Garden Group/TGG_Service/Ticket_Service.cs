@@ -110,7 +110,7 @@ namespace TGG_Service
         {
             Priority priority= new Priority();
 
-            if (input=="VeryLow")
+            if (input=="Very Low")
             {
                 priority = Priority.VeryLow;
             }
@@ -126,7 +126,7 @@ namespace TGG_Service
             {
                 priority = Priority.High;
             }
-            else if (input == "VeryHigh")
+            else if (input == "Very High")
             {
                 priority = Priority.VeryHigh;
             }
