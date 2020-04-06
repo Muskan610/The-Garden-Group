@@ -48,12 +48,18 @@ namespace TGG_DAL
             //gets all documents from collection and stores them in a list
             var filter = Builders<BsonDocument>.Filter.Empty;
             var result = collection.Find(filter).ToList();
-
-            //stores each ticket in ticket object and adds it to ticket list
-            foreach(var r in result)
+            try
             {
+                foreach (var r in result)
+                {
+                    //stores each ticket in ticket object and adds it to ticket list
                     Ticket ticket = new Ticket(r.GetValue("_id").AsObjectId, r.GetValue("requestedBy").AsString, r.GetValue("deadline").ToUniversalTime(), r.GetValue("requestDate").ToUniversalTime(), r.GetValue("subject").AsString, r.GetValue("description").AsString, ConvertStatus(r.GetValue("status").AsString), SetTicketPriority(r.GetValue("priority").AsString), r.GetValue("type").AsString);
-                    tickets.Add(ticket);      
+                    tickets.Add(ticket);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error : " + e);//added exception code
             }
             //list of tickets is returned
             return tickets;
@@ -97,6 +103,7 @@ namespace TGG_DAL
             }
             return state;
         }
+        // writes new ticket in database
         public void DB_Write_ticket(Ticket ticket)
         {
             var database = config.dbClient.GetDatabase("NoDesk");
@@ -114,9 +121,16 @@ namespace TGG_DAL
                 {"priority",ticket.GetPriority().ToString() },
                 {"type",ticket.GetTypeOfIncident().ToString() }
             };
-
-            collection.InsertOneAsync(document);
+            try
+            {
+                collection.InsertOneAsync(document);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error : " + e);//added exception code
+            }   
         }
+        //converts priority string from database to enum Priority for ticket
         private Priority SetTicketPriority(string input)
         {
             Priority priority = new Priority();
@@ -143,16 +157,15 @@ namespace TGG_DAL
             }
             return priority;
         }
-
-        public void UpdateTicketStatus(string Email, string status)
+        public void UpdateTicketStatus(string TicketSubject, string status)
         {
             //select database and collection
             var database = config.dbClient.GetDatabase("NoDesk");
             var collection = database.GetCollection<BsonDocument>("Tickets");
             //create filter
-            var filter = Builders<BsonDocument>.Filter.Eq("requestedBy", Email);
+            var filter = Builders<BsonDocument>.Filter.Eq("subject", TicketSubject);
             //update in database
-            var update = Builders<BsonDocument>.Update.Set("status", status.ToString());
+            var update = Builders<BsonDocument>.Update.Set("status", status);
             collection.UpdateOne(filter, update);
         }
     }

@@ -132,10 +132,10 @@ namespace TGG_Service
             }
             return priority;
         }
-
-        public void UpdateTicketStatus(string email, string status)
+        // 
+        public void UpdateTicketStatus(string TicketSubject, string status)
         {
-            DAO_Tickets.UpdateTicketStatus(email, status);
+            DAO_Tickets.UpdateTicketStatus(TicketSubject, status);
         }
     }
 }

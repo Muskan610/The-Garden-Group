@@ -18,11 +18,15 @@ namespace TGG_Login
     {
         private Ticket_Service ticket_Service;
         private ListViewColumnSorter lvwColumnSorter;
+        private User_Service user_service;
+        private Notifications_Service Notifications_Service = new Notifications_Service();
+        private User loggedin_user;
         List<string> emaillist;
-        public Gardern_Group_desk()
+        public Gardern_Group_desk(User user)
         {
             InitializeComponent();
-
+            //the user who is logged in
+            this.loggedin_user = user;
             ticket_Service = new Ticket_Service();
 
             // Create an instance of a ListView column sorter and assign it 
@@ -33,7 +37,9 @@ namespace TGG_Login
             btn_open_ticket.Enabled = false;
             //calls these methods to show overview of all incidents
             DisplayUnresolved();
-            DisplayPastDeadline();           
+            DisplayPastDeadline();
+            
+            
         }
         //shows number of unresolved incidents
         private void DisplayUnresolved()
@@ -102,7 +108,7 @@ namespace TGG_Login
 
             foreach (Ticket t in ticket_Service.GetAllUnresolvedTickets(ticket_Service.GetAllTickets()))
             {
-                ListViewItem li = new ListViewItem(t.GetRequestedBy());                         
+                ListViewItem li = new ListViewItem(t.GetRequestedBy());
                 li.SubItems.Add(t.GetSubject());
                 li.SubItems.Add(t.GetDescription());
                 li.SubItems.Add(t.GetStatus().ToString());
@@ -285,7 +291,7 @@ namespace TGG_Login
                 Dashboard_panel.Hide();
                 create_ticket_Panel.Hide();
                 panel_incident_management.Show();
-
+                panel_user_management.Hide();
                 PopulateDashboardIncidentList();
             }
         }
@@ -313,21 +319,28 @@ namespace TGG_Login
        //calls method from services layer and provides it with the information needed to create a ticket
         private void Create_ticket_btn_Click(object sender, EventArgs e)
         {
-           
-            create_ticket_Panel.Hide();
-            panel_incident_management.Show();
+            if (type_name_textBox.Text!=""&& ticket_subject_textBox.Text!="" && ticket_description_TextBox.Text!=""&& select_priority_ComboBox.Text!=""&& add_incident_type_TextBox.Text!=""&& select_priority_ComboBox.Text!="")
+            {
+                create_ticket_Panel.Hide();
+                panel_incident_management.Show();
 
-            ticket_Service.WriteTicket_service(type_name_textBox.Text, ticket_deadlineTimePicker.Value, DateTime.Now, ticket_subject_textBox.Text, ticket_description_TextBox.Text, Status.Pending,select_priority_ComboBox.Text,add_incident_type_TextBox.Text);
+                ticket_Service.WriteTicket_service(type_name_textBox.Text, ticket_deadlineTimePicker.Value, DateTime.Now, ticket_subject_textBox.Text, ticket_description_TextBox.Text, Status.Pending, select_priority_ComboBox.Text, add_incident_type_TextBox.Text);
 
-            type_name_textBox.Clear();
-            ticket_deadlineTimePicker.Value = DateTime.Now;
-            ticket_subject_textBox.Clear();
-            ticket_description_TextBox.Clear();
-            add_incident_type_TextBox.Clear();
+                type_name_textBox.Clear();
+                ticket_deadlineTimePicker.Value = DateTime.Now;
+                ticket_subject_textBox.Clear();
+                ticket_description_TextBox.Clear();
+                add_incident_type_TextBox.Clear();
 
-            DisplayUnresolved();
-            DisplayPastDeadline();
-            PopulateDashboardIncidentList();
+                DisplayUnresolved();
+                DisplayPastDeadline();
+                PopulateDashboardIncidentList();
+            }
+            else 
+            {
+                MessageBox.Show("Please check and fill any missing field");
+            }
+            
         }
         //return user to incident managemnt page and cancels creation of ticket
         private void Btn_cancel_of_create_ticket_Click(object sender, EventArgs e)
@@ -386,15 +399,117 @@ namespace TGG_Login
         }
         private void userManagementToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            user_service = new User_Service();
             incidentManagementToolStripMenuItem.BackColor = SystemColors.GradientInactiveCaption;
             dashboardToolStripMenuItem.BackColor = SystemColors.GradientInactiveCaption;
             userManagementToolStripMenuItem.BackColor = SystemColors.ActiveCaption;
+            panel_user_management.Show();
+            panel_incident_management.Hide();
+            panel_ticketOverview.Hide();
+            Dashboard_panel.Hide();
+            create_ticket_Panel.Hide();
+            FillUsers();
+            panel_add_edit_user.Hide();
+            //check admin status
+            if(loggedin_user.Status != "Admin")
+            {
+                btn_create_user.Hide();
+                btn_create_user.Enabled = false;
+                btn_delete_user.Hide();
+                btn_delete_user.Enabled = false;
+            }
         }
 
+        private void FillUsers()
+        {
+            List<User> userlist = user_service.GetAllUsers();
+            listview_users.Clear();
+            int id = 1;
+
+            listview_users.View = View.Details;
+            ColumnHeader columnheader;// Used for creating column headers.
+
+            //creating a list with column names
+            List<string> columns = new List<string>();
+            columns.Add("Id");
+            columns.Add("Email");
+            columns.Add("Name");
+            columns.Add("Status");
+            //columns.Add("Tickets");
+
+            // Create some column headers for the data. 
+            foreach (string col in columns)
+            {
+                columnheader = new ColumnHeader();
+                columnheader.Text = col;
+                columnheader.Width = 100;
+                columnheader.TextAlign = HorizontalAlignment.Left;
+                this.listview_users.Columns.Add(columnheader);
+            }
+
+            foreach (User u in userlist)
+            {
+                ListViewItem li = new ListViewItem(id.ToString());
+                li.SubItems.Add(u.Email);
+                li.SubItems.Add(u.Name);
+                li.SubItems.Add(u.Status);
+                
+                li.Tag = u;
+
+                listview_users.Items.Add(li);
+                id++;
+            }
+        }
+        private void FillUsers_ByEmail(string filter)
+        {
+            List<User> userlist = user_service.GetAllUsers();
+            listview_users.Clear();
+            int id = 1;
+
+            listview_users.View = View.Details;
+            ColumnHeader columnheader;// Used for creating column headers.
+
+            //creating a list with column names
+            List<string> columns = new List<string>();
+            columns.Add("Id");
+            columns.Add("Email");
+            columns.Add("Name");
+            columns.Add("Status");
+            //columns.Add("Tickets");
+
+            // Create some column headers for the data. 
+            foreach (string col in columns)
+            {
+                columnheader = new ColumnHeader();
+                columnheader.Text = col;
+                columnheader.Width = 100;
+                columnheader.TextAlign = HorizontalAlignment.Left;
+                this.listview_users.Columns.Add(columnheader);
+            }
+
+            foreach (User u in userlist)
+            {
+                if (u.Email.ToLower().Contains(filter))
+                {
+                    ListViewItem li = new ListViewItem(id.ToString());
+                    li.SubItems.Add(u.Email);
+                    li.SubItems.Add(u.Name);
+                    li.SubItems.Add(u.Status);
+
+                    li.Tag = u;
+
+                    listview_users.Items.Add(li);
+                    id++;
+                }
+                
+            }
+        }
+        // turns of clock and prevents program to countinue and run when cloased
         private void Gardern_Group_desk_FormClosing(object sender, FormClosingEventArgs e)
         {
             Clock.Stop();
-            
+            System.Environment.Exit(0);
+
         }
         // opens ticket info page
         private void Btn_open_ticket_Click_1(object sender, EventArgs e)
@@ -416,34 +531,37 @@ namespace TGG_Login
         {
 
         }
-        //passes all ticket values to ticket info page
+        //passes all ticket values to ticket info page and deselects previously selected item
         private void listView_incidents_Click(object sender, EventArgs e)
         {
             btn_open_ticket.Enabled = true;
 
             ClearTicketInfo();
 
-            lbl_ticket_info_reportedBy.Text = listView_incidents.SelectedItems[0].SubItems[0].Text;
-            lbl_ticket_info_subject.Text= listView_incidents.SelectedItems[0].SubItems[1].Text;
-            lbl_ticket_info_description.Text=listView_incidents.SelectedItems[0].SubItems[2].Text;
-            lbl_ticket_info_status.Text=listView_incidents.SelectedItems[0].SubItems[3].Text;
-            lbl_ticket_info_priority.Text=listView_incidents.SelectedItems[0].SubItems[4].Text;
-            lbl_ticket_info_deadline.Text= listView_incidents.SelectedItems[0].SubItems[6].Text;
-            lbl_ticket_info_whenTicketWasSbmt.Text=listView_incidents.SelectedItems[0].SubItems[5].Text;
-            lbl_ticket_tyoe_of_incident.Text= listView_incidents.SelectedItems[0].SubItems[7].Text;
-
+            if (listView_incidents.SelectedItems.Count>0)
+            {
+                lbl_ticket_info_reportedBy.Text = listView_incidents.SelectedItems[0].SubItems[0].Text;
+                lbl_ticket_info_subject.Text = listView_incidents.SelectedItems[0].SubItems[1].Text;
+                lbl_ticket_info_description.Text = listView_incidents.SelectedItems[0].SubItems[2].Text;
+                lbl_ticket_info_status.Text = listView_incidents.SelectedItems[0].SubItems[3].Text;
+                lbl_ticket_info_priority.Text = listView_incidents.SelectedItems[0].SubItems[4].Text;
+                lbl_ticket_info_deadline.Text = listView_incidents.SelectedItems[0].SubItems[6].Text;
+                lbl_ticket_info_whenTicketWasSbmt.Text = listView_incidents.SelectedItems[0].SubItems[5].Text;
+                lbl_ticket_tyoe_of_incident.Text = listView_incidents.SelectedItems[0].SubItems[7].Text;
+            }
         }
         //clears all info of ticket
         private void ClearTicketInfo()
         {
-            lbl_ticket_info_reportedBy.Text = null;
-            lbl_ticket_info_subject.Text = null;
-            lbl_ticket_info_description.Text = null;
-            lbl_ticket_info_status.Text = null;
-            lbl_ticket_info_priority.Text = null;
-            lbl_ticket_info_deadline.Text = null;
-            lbl_ticket_info_whenTicketWasSbmt.Text = null;
-            lbl_ticket_tyoe_of_incident.Text = null;
+
+            lbl_ticket_info_reportedBy.Text ="";
+            lbl_ticket_info_subject.Text = "";
+            lbl_ticket_info_description.Text = "";
+            lbl_ticket_info_status.Text = "";
+            lbl_ticket_info_priority.Text = "";
+            lbl_ticket_info_deadline.Text = "";
+            lbl_ticket_info_whenTicketWasSbmt.Text = "";
+            lbl_ticket_tyoe_of_incident.Text = "";
 
         }
 
@@ -451,6 +569,7 @@ namespace TGG_Login
         {
             listView_incidents.Hide();
             listView_dashboard_SolvedTickets.Show();
+            PopulateDashboardIncidentList_Solved();
             btn_incidentmangement_ShowAllTickers.Show();
             btn_Incidentmanagement_ShowSolvedTickets.Hide();
         }
@@ -469,17 +588,18 @@ namespace TGG_Login
             {
                 string updatedticketstatus = comboBox_change_ticket_status.SelectedItem.ToString();
                 string UserEmail = lbl_ticket_info_reportedBy.Text;
+                string TicketSubject = lbl_ticket_info_subject.Text;
 
-                ticket_Service.UpdateTicketStatus(UserEmail, updatedticketstatus);
+                ticket_Service.UpdateTicketStatus(TicketSubject, updatedticketstatus);
+
+                panel_ticketOverview.Hide();
+                panel_incident_management.Show();
 
                 Notifications_Service notifications = new Notifications_Service();
                 notifications.CreateEmail(UserEmail, updatedticketstatus);
 
-                MessageBox.Show("Your ticket status has been changed!", "Succes!!",
+                MessageBox.Show("Your ticket status has been changed to " + updatedticketstatus, "Success!!",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                panel_ticketOverview.Hide();
-                panel_incident_management.Show();
             }
             catch (Exception)
             {
@@ -493,9 +613,181 @@ namespace TGG_Login
 
         private void txtBox_filterEmail_TextChanged(object sender, EventArgs e)
         {
+            
+        }
+
+        private void label26_Click(object sender, EventArgs e)
+        {
 
         }
 
+        private void label27_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void label28_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_create_user_Click(object sender, EventArgs e)
+        {
+           
+            panel_add_edit_user.Show();
+            if (listview_users.SelectedItems.Count == 1)
+            {
+                User selectedUser = user_service.GetUser(listview_users.SelectedItems[0].SubItems[1].Text);
+                //fill text box with listview data
+                lbl_user_management_original_email.Text = listview_users.SelectedItems[0].SubItems[1].Text;
+                txtbox_user_management_email.Text = listview_users.SelectedItems[0].SubItems[1].Text;
+                txtbox_user_management_name.Text = listview_users.SelectedItems[0].SubItems[2].Text;
+                //get password from database beceause not stored in listview
+                txtbox_user_management_password.Text = selectedUser.Password;
+                txtbox_user_management_status.Text = listview_users.SelectedItems[0].SubItems[3].Text;
+                //user is selected for edit, so add not allowed
+                btn_user_management_add.Enabled = false;
+            }
+            else if(listview_users.SelectedItems.Count > 1)
+            {
+                MessageBox.Show("Oops, you are not able to edit multiple users at the same time. please make sure you have one user selected.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                btn_user_management_edit.Enabled = false;
+            }
+        }
+
+        private void btn_user_management_edit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // fill variables with user input data
+                string originalEmail = lbl_user_management_original_email.Text;
+                string email = txtbox_user_management_email.Text;
+                string name = txtbox_user_management_name.Text;
+                string password = txtbox_user_management_password.Text;
+                string status = txtbox_user_management_status.Text;
+                user_service.UpdateUser(originalEmail, email, name, password, status);
+                //show succes message
+                MessageBox.Show("User data has been changed", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //hide panel
+                panel_add_edit_user.Hide();
+                //fill list again
+                FillUsers();
+
+
+                //Send email notification if used is succesfully editted
+                Notifications_Service.Email_UserAddEdit(email, name, password, status, "Editted");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Oops, something went wrong. please try again.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+            }
+        }
+
+        private void btn_user_management_add_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string email = txtbox_user_management_email.Text;
+                string name = txtbox_user_management_name.Text;
+                string password = txtbox_user_management_password.Text;
+                string status = txtbox_user_management_status.Text;
+                user_service.AddUser(email, name, password, status);
+
+                MessageBox.Show("User has been added", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //hide panel
+                panel_add_edit_user.Hide();
+                //fill list again
+                FillUsers();
+
+                //Send email notification if used is succesfully added
+                Notifications_Service.Email_UserAddEdit(email, name, password, status, "Added");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Oops, something went wrong. please try again.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+        }
+
+        private void btn_delete_user_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (listview_users.SelectedItems.Count == 1)
+                {
+                    DialogResult result = MessageBox.Show("Are you sure you want to delete user?", "WARNING", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                    if (result == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        string email = listview_users.SelectedItems[0].SubItems[1].Text;
+                        user_service.DeleteUser(email);
+                        FillUsers();
+                        listview_users.SelectedItems.Clear();
+
+                        //Send email notification if used is succesfully added
+                        Notifications_Service.Email_UserDelete(email);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Oops, you are not able to delete multiple users at the same time. please make sure you have one user selected.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Oops, something went wrong. please try again.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void txtbox_filter_user_management_TextChanged(object sender, EventArgs e)
+        {
+            if (txtbox_filter_user_management.Text == null)
+            {
+                FillUsers();
+            }
+            else
+            {
+                FillUsers_ByEmail(txtbox_filter_user_management.Text);
+            }
+        }
+
+        private void BackgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+        }
+        // Goes back to incident management
+        private void View_ticket_GoBack_btn_Click(object sender, EventArgs e)
+        {
+            panel_ticketOverview.Hide();
+            PopulateDashboardIncidentList();
+            panel_incident_management.Show();
+        }
+        // same with the one for the unresolved tickets above but this one for the solved tickets
+        private void ListView_dashboard_SolvedTickets_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btn_open_ticket.Enabled = true;
+
+            ClearTicketInfo();
+
+            if (listView_dashboard_SolvedTickets.SelectedItems.Count > 0)
+            {
+                lbl_ticket_info_reportedBy.Text = listView_dashboard_SolvedTickets.SelectedItems[0].SubItems[0].Text;
+                lbl_ticket_info_subject.Text = listView_dashboard_SolvedTickets.SelectedItems[0].SubItems[1].Text;
+                lbl_ticket_info_description.Text = listView_dashboard_SolvedTickets.SelectedItems[0].SubItems[2].Text;
+                lbl_ticket_info_status.Text = listView_dashboard_SolvedTickets.SelectedItems[0].SubItems[3].Text;
+                lbl_ticket_info_priority.Text = listView_dashboard_SolvedTickets.SelectedItems[0].SubItems[4].Text;
+                lbl_ticket_info_deadline.Text = listView_dashboard_SolvedTickets.SelectedItems[0].SubItems[6].Text;
+                lbl_ticket_info_whenTicketWasSbmt.Text = listView_dashboard_SolvedTickets.SelectedItems[0].SubItems[5].Text;
+                lbl_ticket_tyoe_of_incident.Text = listView_dashboard_SolvedTickets.SelectedItems[0].SubItems[7].Text;
+            }
+        }
     }
 }

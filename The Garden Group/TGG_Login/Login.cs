@@ -23,11 +23,10 @@ namespace TGG_App
         private void Loginbtn_Click(object sender, EventArgs e)
         {
             User oneUser = user_Service.verifyUserCredentials(UnameTxtbox.Text,PasswdTxtbox.Text);
-            
             if (oneUser!= null)
             {
                 //get user and login
-                GoToDashboard();
+                GoToDashboard(oneUser);
             }
             else
             {
@@ -46,11 +45,12 @@ namespace TGG_App
             Form1 PassResetForm = new Form1();
             PassResetForm.Show();
         }
-        private void GoToDashboard()
+        private void GoToDashboard(User user)
         {
             this.Hide();
-            TGG_Login.Gardern_Group_desk dashboard = new TGG_Login.Gardern_Group_desk();
+            TGG_Login.Gardern_Group_desk dashboard = new TGG_Login.Gardern_Group_desk(user);
             dashboard.Show();
+            
         }
 
        

@@ -55,8 +55,9 @@
             this.label14 = new System.Windows.Forms.Label();
             this.go_create_incident_BTN = new System.Windows.Forms.Button();
             this.panel_ticketOverview = new System.Windows.Forms.Panel();
-            this.btn_Ticketstatistics_UpdateTicketStatus = new System.Windows.Forms.Button();
+            this.view_ticket_GoBack_btn = new System.Windows.Forms.Button();
             this.lbl_ticket_info_description = new System.Windows.Forms.Label();
+            this.btn_Ticketstatistics_UpdateTicketStatus = new System.Windows.Forms.Button();
             this.lbl_ticket_info_whenTicketWasSbmt = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.comboBox_change_ticket_status = new System.Windows.Forms.ComboBox();
@@ -95,14 +96,35 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.create_ticket_btn = new System.Windows.Forms.Button();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.Clock = new System.Windows.Forms.Timer(this.components);
+            this.panel_user_management = new System.Windows.Forms.Panel();
+            this.panel_add_edit_user = new System.Windows.Forms.Panel();
+            this.lbl_user_management_original_email = new System.Windows.Forms.Label();
+            this.btn_user_management_edit = new System.Windows.Forms.Button();
+            this.btn_user_management_add = new System.Windows.Forms.Button();
+            this.txtbox_user_management_name = new System.Windows.Forms.TextBox();
+            this.txtbox_user_management_password = new System.Windows.Forms.TextBox();
+            this.txtbox_user_management_status = new System.Windows.Forms.TextBox();
+            this.txtbox_user_management_email = new System.Windows.Forms.TextBox();
+            this.lbl_user_management_status = new System.Windows.Forms.Label();
+            this.lbl_user_management_password = new System.Windows.Forms.Label();
+            this.lbl_user_management_name = new System.Windows.Forms.Label();
+            this.lbl_user_management_email = new System.Windows.Forms.Label();
+            this.btn_delete_user = new System.Windows.Forms.Button();
+            this.listview_users = new System.Windows.Forms.ListView();
+            this.lbl_overview_users = new System.Windows.Forms.Label();
+            this.txtbox_filter_user_management = new System.Windows.Forms.TextBox();
+            this.lbl_filter_user_management = new System.Windows.Forms.Label();
+            this.btn_create_user = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.Dashboard_panel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panel_incident_management.SuspendLayout();
             this.panel_ticketOverview.SuspendLayout();
             this.create_ticket_Panel.SuspendLayout();
+            this.panel_user_management.SuspendLayout();
+            this.panel_add_edit_user.SuspendLayout();
             this.SuspendLayout();
             // 
             // Dashboard_panel
@@ -242,6 +264,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dashboardToolStripMenuItem,
             this.incidentManagementToolStripMenuItem,
@@ -365,14 +388,17 @@
             // 
             // listView_dashboard_SolvedTickets
             // 
+            this.listView_dashboard_SolvedTickets.FullRowSelect = true;
             this.listView_dashboard_SolvedTickets.GridLines = true;
             this.listView_dashboard_SolvedTickets.HideSelection = false;
             this.listView_dashboard_SolvedTickets.Location = new System.Drawing.Point(17, 126);
+            this.listView_dashboard_SolvedTickets.MultiSelect = false;
             this.listView_dashboard_SolvedTickets.Name = "listView_dashboard_SolvedTickets";
             this.listView_dashboard_SolvedTickets.Size = new System.Drawing.Size(575, 331);
             this.listView_dashboard_SolvedTickets.TabIndex = 4;
             this.listView_dashboard_SolvedTickets.UseCompatibleStateImageBehavior = false;
             this.listView_dashboard_SolvedTickets.Visible = false;
+            this.listView_dashboard_SolvedTickets.SelectedIndexChanged += new System.EventHandler(this.ListView_dashboard_SolvedTickets_SelectedIndexChanged);
             // 
             // txtBox_filterEmail
             // 
@@ -404,8 +430,9 @@
             // 
             // panel_ticketOverview
             // 
-            this.panel_ticketOverview.Controls.Add(this.btn_Ticketstatistics_UpdateTicketStatus);
+            this.panel_ticketOverview.Controls.Add(this.view_ticket_GoBack_btn);
             this.panel_ticketOverview.Controls.Add(this.lbl_ticket_info_description);
+            this.panel_ticketOverview.Controls.Add(this.btn_Ticketstatistics_UpdateTicketStatus);
             this.panel_ticketOverview.Controls.Add(this.lbl_ticket_info_whenTicketWasSbmt);
             this.panel_ticketOverview.Controls.Add(this.label25);
             this.panel_ticketOverview.Controls.Add(this.comboBox_change_ticket_status);
@@ -428,8 +455,27 @@
             this.panel_ticketOverview.Controls.Add(this.label20);
             this.panel_ticketOverview.Location = new System.Drawing.Point(0, 0);
             this.panel_ticketOverview.Name = "panel_ticketOverview";
-            this.panel_ticketOverview.Size = new System.Drawing.Size(638, 510);
+            this.panel_ticketOverview.Size = new System.Drawing.Size(638, 540);
             this.panel_ticketOverview.TabIndex = 8;
+            // 
+            // view_ticket_GoBack_btn
+            // 
+            this.view_ticket_GoBack_btn.Location = new System.Drawing.Point(357, 419);
+            this.view_ticket_GoBack_btn.Name = "view_ticket_GoBack_btn";
+            this.view_ticket_GoBack_btn.Size = new System.Drawing.Size(237, 38);
+            this.view_ticket_GoBack_btn.TabIndex = 44;
+            this.view_ticket_GoBack_btn.Text = "Go Back";
+            this.view_ticket_GoBack_btn.UseVisualStyleBackColor = true;
+            this.view_ticket_GoBack_btn.Click += new System.EventHandler(this.View_ticket_GoBack_btn_Click);
+            // 
+            // lbl_ticket_info_description
+            // 
+            this.lbl_ticket_info_description.AutoSize = true;
+            this.lbl_ticket_info_description.Location = new System.Drawing.Point(116, 332);
+            this.lbl_ticket_info_description.Name = "lbl_ticket_info_description";
+            this.lbl_ticket_info_description.Size = new System.Drawing.Size(31, 13);
+            this.lbl_ticket_info_description.TabIndex = 42;
+            this.lbl_ticket_info_description.Text = "????";
             // 
             // btn_Ticketstatistics_UpdateTicketStatus
             // 
@@ -440,15 +486,6 @@
             this.btn_Ticketstatistics_UpdateTicketStatus.Text = "Update Ticket Status";
             this.btn_Ticketstatistics_UpdateTicketStatus.UseVisualStyleBackColor = true;
             this.btn_Ticketstatistics_UpdateTicketStatus.Click += new System.EventHandler(this.btn_Ticketstatistics_UpdateTicketStatus_Click);
-            // 
-            // lbl_ticket_info_description
-            // 
-            this.lbl_ticket_info_description.AutoSize = true;
-            this.lbl_ticket_info_description.Location = new System.Drawing.Point(116, 332);
-            this.lbl_ticket_info_description.Name = "lbl_ticket_info_description";
-            this.lbl_ticket_info_description.Size = new System.Drawing.Size(31, 13);
-            this.lbl_ticket_info_description.TabIndex = 42;
-            this.lbl_ticket_info_description.Text = "????";
             // 
             // lbl_ticket_info_whenTicketWasSbmt
             // 
@@ -815,6 +852,215 @@
             this.Clock.Interval = 10000;
             this.Clock.Tick += new System.EventHandler(this.Clock_Tick);
             // 
+            // panel_user_management
+            // 
+            this.panel_user_management.Controls.Add(this.panel_add_edit_user);
+            this.panel_user_management.Controls.Add(this.btn_delete_user);
+            this.panel_user_management.Controls.Add(this.listview_users);
+            this.panel_user_management.Controls.Add(this.lbl_overview_users);
+            this.panel_user_management.Controls.Add(this.txtbox_filter_user_management);
+            this.panel_user_management.Controls.Add(this.lbl_filter_user_management);
+            this.panel_user_management.Controls.Add(this.btn_create_user);
+            this.panel_user_management.Location = new System.Drawing.Point(0, 0);
+            this.panel_user_management.Margin = new System.Windows.Forms.Padding(2);
+            this.panel_user_management.Name = "panel_user_management";
+            this.panel_user_management.Size = new System.Drawing.Size(638, 535);
+            this.panel_user_management.TabIndex = 13;
+            this.panel_user_management.Visible = false;
+            // 
+            // panel_add_edit_user
+            // 
+            this.panel_add_edit_user.Controls.Add(this.lbl_user_management_original_email);
+            this.panel_add_edit_user.Controls.Add(this.btn_user_management_edit);
+            this.panel_add_edit_user.Controls.Add(this.btn_user_management_add);
+            this.panel_add_edit_user.Controls.Add(this.txtbox_user_management_name);
+            this.panel_add_edit_user.Controls.Add(this.txtbox_user_management_password);
+            this.panel_add_edit_user.Controls.Add(this.txtbox_user_management_status);
+            this.panel_add_edit_user.Controls.Add(this.txtbox_user_management_email);
+            this.panel_add_edit_user.Controls.Add(this.lbl_user_management_status);
+            this.panel_add_edit_user.Controls.Add(this.lbl_user_management_password);
+            this.panel_add_edit_user.Controls.Add(this.lbl_user_management_name);
+            this.panel_add_edit_user.Controls.Add(this.lbl_user_management_email);
+            this.panel_add_edit_user.Location = new System.Drawing.Point(0, 0);
+            this.panel_add_edit_user.Margin = new System.Windows.Forms.Padding(2);
+            this.panel_add_edit_user.Name = "panel_add_edit_user";
+            this.panel_add_edit_user.Size = new System.Drawing.Size(612, 479);
+            this.panel_add_edit_user.TabIndex = 4;
+            this.panel_add_edit_user.Visible = false;
+            // 
+            // lbl_user_management_original_email
+            // 
+            this.lbl_user_management_original_email.AutoSize = true;
+            this.lbl_user_management_original_email.Location = new System.Drawing.Point(430, 54);
+            this.lbl_user_management_original_email.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_user_management_original_email.Name = "lbl_user_management_original_email";
+            this.lbl_user_management_original_email.Size = new System.Drawing.Size(25, 13);
+            this.lbl_user_management_original_email.TabIndex = 10;
+            this.lbl_user_management_original_email.Text = "???";
+            this.lbl_user_management_original_email.Visible = false;
+            // 
+            // btn_user_management_edit
+            // 
+            this.btn_user_management_edit.Location = new System.Drawing.Point(258, 229);
+            this.btn_user_management_edit.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_user_management_edit.Name = "btn_user_management_edit";
+            this.btn_user_management_edit.Size = new System.Drawing.Size(71, 30);
+            this.btn_user_management_edit.TabIndex = 9;
+            this.btn_user_management_edit.Text = "Edit";
+            this.btn_user_management_edit.UseVisualStyleBackColor = true;
+            this.btn_user_management_edit.Click += new System.EventHandler(this.btn_user_management_edit_Click);
+            // 
+            // btn_user_management_add
+            // 
+            this.btn_user_management_add.BackColor = System.Drawing.SystemColors.Control;
+            this.btn_user_management_add.Location = new System.Drawing.Point(89, 229);
+            this.btn_user_management_add.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_user_management_add.Name = "btn_user_management_add";
+            this.btn_user_management_add.Size = new System.Drawing.Size(69, 30);
+            this.btn_user_management_add.TabIndex = 8;
+            this.btn_user_management_add.Text = "Add";
+            this.btn_user_management_add.UseVisualStyleBackColor = false;
+            this.btn_user_management_add.Click += new System.EventHandler(this.btn_user_management_add_Click);
+            // 
+            // txtbox_user_management_name
+            // 
+            this.txtbox_user_management_name.Location = new System.Drawing.Point(206, 84);
+            this.txtbox_user_management_name.Margin = new System.Windows.Forms.Padding(2);
+            this.txtbox_user_management_name.Name = "txtbox_user_management_name";
+            this.txtbox_user_management_name.Size = new System.Drawing.Size(130, 20);
+            this.txtbox_user_management_name.TabIndex = 7;
+            // 
+            // txtbox_user_management_password
+            // 
+            this.txtbox_user_management_password.Location = new System.Drawing.Point(206, 118);
+            this.txtbox_user_management_password.Margin = new System.Windows.Forms.Padding(2);
+            this.txtbox_user_management_password.Name = "txtbox_user_management_password";
+            this.txtbox_user_management_password.Size = new System.Drawing.Size(130, 20);
+            this.txtbox_user_management_password.TabIndex = 6;
+            // 
+            // txtbox_user_management_status
+            // 
+            this.txtbox_user_management_status.Location = new System.Drawing.Point(206, 159);
+            this.txtbox_user_management_status.Margin = new System.Windows.Forms.Padding(2);
+            this.txtbox_user_management_status.Name = "txtbox_user_management_status";
+            this.txtbox_user_management_status.Size = new System.Drawing.Size(130, 20);
+            this.txtbox_user_management_status.TabIndex = 5;
+            // 
+            // txtbox_user_management_email
+            // 
+            this.txtbox_user_management_email.Location = new System.Drawing.Point(206, 54);
+            this.txtbox_user_management_email.Margin = new System.Windows.Forms.Padding(2);
+            this.txtbox_user_management_email.Name = "txtbox_user_management_email";
+            this.txtbox_user_management_email.Size = new System.Drawing.Size(130, 20);
+            this.txtbox_user_management_email.TabIndex = 4;
+            // 
+            // lbl_user_management_status
+            // 
+            this.lbl_user_management_status.AutoSize = true;
+            this.lbl_user_management_status.Location = new System.Drawing.Point(87, 158);
+            this.lbl_user_management_status.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_user_management_status.Name = "lbl_user_management_status";
+            this.lbl_user_management_status.Size = new System.Drawing.Size(37, 13);
+            this.lbl_user_management_status.TabIndex = 3;
+            this.lbl_user_management_status.Text = "Status";
+            // 
+            // lbl_user_management_password
+            // 
+            this.lbl_user_management_password.AutoSize = true;
+            this.lbl_user_management_password.Location = new System.Drawing.Point(85, 122);
+            this.lbl_user_management_password.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_user_management_password.Name = "lbl_user_management_password";
+            this.lbl_user_management_password.Size = new System.Drawing.Size(53, 13);
+            this.lbl_user_management_password.TabIndex = 2;
+            this.lbl_user_management_password.Text = "Password";
+            this.lbl_user_management_password.Click += new System.EventHandler(this.label28_Click);
+            // 
+            // lbl_user_management_name
+            // 
+            this.lbl_user_management_name.AutoSize = true;
+            this.lbl_user_management_name.Location = new System.Drawing.Point(85, 87);
+            this.lbl_user_management_name.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_user_management_name.Name = "lbl_user_management_name";
+            this.lbl_user_management_name.Size = new System.Drawing.Size(35, 13);
+            this.lbl_user_management_name.TabIndex = 1;
+            this.lbl_user_management_name.Text = "Name";
+            this.lbl_user_management_name.Click += new System.EventHandler(this.label27_Click);
+            // 
+            // lbl_user_management_email
+            // 
+            this.lbl_user_management_email.AutoSize = true;
+            this.lbl_user_management_email.Location = new System.Drawing.Point(85, 54);
+            this.lbl_user_management_email.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_user_management_email.Name = "lbl_user_management_email";
+            this.lbl_user_management_email.Size = new System.Drawing.Size(32, 13);
+            this.lbl_user_management_email.TabIndex = 0;
+            this.lbl_user_management_email.Text = "Email";
+            // 
+            // btn_delete_user
+            // 
+            this.btn_delete_user.Location = new System.Drawing.Point(478, 68);
+            this.btn_delete_user.Name = "btn_delete_user";
+            this.btn_delete_user.Size = new System.Drawing.Size(116, 40);
+            this.btn_delete_user.TabIndex = 4;
+            this.btn_delete_user.Text = "DELETE USER";
+            this.btn_delete_user.UseVisualStyleBackColor = true;
+            this.btn_delete_user.Click += new System.EventHandler(this.btn_delete_user_Click);
+            // 
+            // listview_users
+            // 
+            this.listview_users.FullRowSelect = true;
+            this.listview_users.GridLines = true;
+            this.listview_users.HideSelection = false;
+            this.listview_users.Location = new System.Drawing.Point(21, 126);
+            this.listview_users.MultiSelect = false;
+            this.listview_users.Name = "listview_users";
+            this.listview_users.Size = new System.Drawing.Size(575, 331);
+            this.listview_users.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.listview_users.TabIndex = 1;
+            this.listview_users.UseCompatibleStateImageBehavior = false;
+            // 
+            // lbl_overview_users
+            // 
+            this.lbl_overview_users.AutoSize = true;
+            this.lbl_overview_users.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_overview_users.Location = new System.Drawing.Point(14, 35);
+            this.lbl_overview_users.Name = "lbl_overview_users";
+            this.lbl_overview_users.Size = new System.Drawing.Size(129, 20);
+            this.lbl_overview_users.TabIndex = 2;
+            this.lbl_overview_users.Text = "Overview users";
+            this.lbl_overview_users.Click += new System.EventHandler(this.label26_Click);
+            // 
+            // txtbox_filter_user_management
+            // 
+            this.txtbox_filter_user_management.Location = new System.Drawing.Point(130, 79);
+            this.txtbox_filter_user_management.Name = "txtbox_filter_user_management";
+            this.txtbox_filter_user_management.Size = new System.Drawing.Size(195, 20);
+            this.txtbox_filter_user_management.TabIndex = 2;
+            this.txtbox_filter_user_management.TextChanged += new System.EventHandler(this.txtbox_filter_user_management_TextChanged);
+            // 
+            // lbl_filter_user_management
+            // 
+            this.lbl_filter_user_management.AutoSize = true;
+            this.lbl_filter_user_management.Location = new System.Drawing.Point(28, 81);
+            this.lbl_filter_user_management.Name = "lbl_filter_user_management";
+            this.lbl_filter_user_management.Size = new System.Drawing.Size(95, 13);
+            this.lbl_filter_user_management.TabIndex = 3;
+            this.lbl_filter_user_management.Text = "Filter by user/email";
+            // 
+            // btn_create_user
+            // 
+            this.btn_create_user.Location = new System.Drawing.Point(348, 68);
+            this.btn_create_user.Name = "btn_create_user";
+            this.btn_create_user.Size = new System.Drawing.Size(116, 40);
+            this.btn_create_user.TabIndex = 1;
+            this.btn_create_user.Text = "CREATE/EDIT USER";
+            this.btn_create_user.UseVisualStyleBackColor = true;
+            this.btn_create_user.Click += new System.EventHandler(this.btn_create_user_Click);
+            // 
+            // backgroundWorker2
+            // 
+            this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker2_DoWork);
+            // 
             // Gardern_Group_desk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -825,6 +1071,7 @@
             this.Controls.Add(this.panel_incident_management);
             this.Controls.Add(this.create_ticket_Panel);
             this.Controls.Add(this.panel_ticketOverview);
+            this.Controls.Add(this.panel_user_management);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Gardern_Group_desk";
             this.Text = "Garden group desk";
@@ -840,6 +1087,10 @@
             this.panel_ticketOverview.PerformLayout();
             this.create_ticket_Panel.ResumeLayout(false);
             this.create_ticket_Panel.PerformLayout();
+            this.panel_user_management.ResumeLayout(false);
+            this.panel_user_management.PerformLayout();
+            this.panel_add_edit_user.ResumeLayout(false);
+            this.panel_add_edit_user.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -880,7 +1131,6 @@
         private System.Windows.Forms.ComboBox select_priority_ComboBox;
         private System.Windows.Forms.Label lbl_Clock_create_ticket;
         private System.Windows.Forms.DateTimePicker ticket_deadlineTimePicker;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Timer Clock;
         private System.Windows.Forms.TextBox add_incident_type_TextBox;
         private System.Windows.Forms.Label label14;
@@ -912,8 +1162,29 @@
         private CircularProgressBar.CircularProgressBar past_deadline_circularProgressBar;
         private CircularProgressBar.CircularProgressBar unresolved_ProgressBar;
         private System.Windows.Forms.Button btn_Incidentmanagement_ShowSolvedTickets;
-        private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.Windows.Forms.Button btn_incidentmangement_ShowAllTickers;
         private System.Windows.Forms.Button btn_Ticketstatistics_UpdateTicketStatus;
+        private System.Windows.Forms.Panel panel_user_management;
+        private System.Windows.Forms.ListView listview_users;
+        private System.Windows.Forms.Label lbl_overview_users;
+        private System.Windows.Forms.TextBox txtbox_filter_user_management;
+        private System.Windows.Forms.Label lbl_filter_user_management;
+        private System.Windows.Forms.Button btn_create_user;
+        private System.Windows.Forms.Panel panel_add_edit_user;
+        private System.Windows.Forms.Label lbl_user_management_password;
+        private System.Windows.Forms.Label lbl_user_management_name;
+        private System.Windows.Forms.Label lbl_user_management_email;
+        private System.Windows.Forms.Label lbl_user_management_status;
+        private System.Windows.Forms.Button btn_user_management_edit;
+        private System.Windows.Forms.Button btn_user_management_add;
+        private System.Windows.Forms.TextBox txtbox_user_management_name;
+        private System.Windows.Forms.TextBox txtbox_user_management_password;
+        private System.Windows.Forms.TextBox txtbox_user_management_status;
+        private System.Windows.Forms.TextBox txtbox_user_management_email;
+        private System.Windows.Forms.Button btn_delete_user;
+        private System.Windows.Forms.Label lbl_user_management_original_email;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker2;
+        private System.Windows.Forms.Button view_ticket_GoBack_btn;
     }
 }

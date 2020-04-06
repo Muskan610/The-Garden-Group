@@ -75,7 +75,6 @@
             this.UnameTxtbox.Name = "UnameTxtbox";
             this.UnameTxtbox.Size = new System.Drawing.Size(269, 20);
             this.UnameTxtbox.TabIndex = 3;
-            this.UnameTxtbox.Text = "test";
             // 
             // label4
             // 
@@ -94,7 +93,7 @@
             this.PasswdTxtbox.Name = "PasswdTxtbox";
             this.PasswdTxtbox.Size = new System.Drawing.Size(275, 20);
             this.PasswdTxtbox.TabIndex = 3;
-            this.PasswdTxtbox.Text = "test";
+            this.PasswdTxtbox.UseSystemPasswordChar = true;
             // 
             // Loginbtn
             // 

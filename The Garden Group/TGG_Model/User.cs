@@ -10,5 +10,6 @@ namespace TGG_Model
         public string Password;
         public string Name;
         public string Auth_code;
+        public string Status;
     }
 }
